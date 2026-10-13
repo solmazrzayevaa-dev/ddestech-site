@@ -1,0 +1,237 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────────────────
+   DesTech dizayn tokenləri — mənbə: design/tokens.json
+   Yalnız veb tokenləri köçürülüb (web-*, glass-*, shadow-*, radius-*,
+   spacing/web-*, type/Web qrupu). Sosial media tokenləri (post-*, format-*,
+   1080px kanvas ölçüləri) VEBDƏ İSTİFADƏ OLUNMUR və bura köçürülməyib.
+   ────────────────────────────────────────────────────────────────────────── */
+
+@theme {
+  /* ── Rəng ────────────────────────────────────────────────────────────────
+     Tailwind-in default palitrası söndürülüb — səhifədə yalnız DesTech
+     rəngləri işlənsin (web-guidelines.md "Etmə" siyahısı). */
+  --color-*: initial;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-inherit: inherit;
+
+  /* Brend palitrası — proqram kartları və rəngli panellər üçün */
+  --color-pink: #e5358c;
+  --color-pink-deep: #b8226f;
+  --color-pink-glow: #ea62cf;
+  --color-pink-soft: #fde1f0;
+  --color-lime: #d6e04a;
+  --color-yellow: #efea4d;
+  --color-indigo: #44479a;
+  --color-cobalt: #2448e0;
+  --color-cobalt-deep: #1631a6;
+  --color-ink: #151228;
+  --color-ink-muted: #5a566e;
+  --color-paper: #ffffff;
+  --color-cloud: #f4f2ee;
+
+  /* Veb semantik rənglər */
+  --color-web-bg: var(--color-cloud);
+  --color-web-bg-alt: #ebe8e1;
+  --color-web-surface: var(--color-paper);
+  --color-web-text: var(--color-ink);
+  --color-web-text-muted: var(--color-ink-muted);
+  --color-web-text-soft: #8a8698; /* yalnız 36px+ başlıqda */
+  --color-web-border: #e4e0d8; /* dekorativ */
+  --color-web-border-strong: var(--color-ink-muted); /* input, checkbox */
+  --color-web-cta: var(--color-pink-deep);
+  --color-web-cta-hover: #9a1a5c;
+  --color-web-on-cta: var(--color-paper);
+  --color-web-highlight: var(--color-lime); /* üzərində yalnız ink */
+
+  /* Şüşə — yalnız foto və ya rəngli blok üzərində */
+  --color-glass-light: rgba(255, 255, 255, 0.62);
+  --color-glass-dark: rgba(21, 18, 40, 0.48);
+  --color-glass-stroke: rgba(255, 255, 255, 0.45);
+
+  /* Fokus halqası */
+  --color-focus-ring: var(--color-ink);
+
+  /* ── Şrift ailələri ──────────────────────────────────────────────────── */
+  --font-sans: var(--font-plus-jakarta), "Segoe UI", system-ui, sans-serif;
+  --font-display: var(--font-unbounded), "Arial Black", sans-serif;
+
+  /* ── Veb tipoqrafiyası (type → "Web — sayt tipoqrafiyası") ───────────── */
+  --text-web-display: 104px; /* desktop hero, səhifədə 1 dəfə */
+  --text-web-display--line-height: 0.92;
+  --text-web-display--letter-spacing: -0.055em;
+  --text-web-display--font-weight: 600;
+
+  --text-web-display-m: 48px; /* mobil hero */
+  --text-web-display-m--line-height: 0.95;
+  --text-web-display-m--letter-spacing: -0.05em;
+  --text-web-display-m--font-weight: 600;
+
+  --text-web-h2: 64px;
+  --text-web-h2--line-height: 0.98;
+  --text-web-h2--letter-spacing: -0.045em;
+  --text-web-h2--font-weight: 600;
+
+  --text-web-h2-m: 36px;
+  --text-web-h2-m--line-height: 1.02;
+  --text-web-h2-m--letter-spacing: -0.04em;
+  --text-web-h2-m--font-weight: 600;
+
+  --text-web-h3: 26px; /* kart başlığı, mobil 24px */
+  --text-web-h3--line-height: 1.1;
+  --text-web-h3--letter-spacing: -0.03em;
+  --text-web-h3--font-weight: 600;
+
+  --text-web-statement: 36px; /* mərkəzləşdirilmiş bəyanat, mobil 24px */
+  --text-web-statement--line-height: 1.22;
+  --text-web-statement--letter-spacing: -0.025em;
+  --text-web-statement--font-weight: 500;
+
+  --text-web-body-lg: 20px; /* mobil 18px */
+  --text-web-body-lg--line-height: 1.5;
+  --text-web-body-lg--font-weight: 500;
+
+  --text-web-body: 16px;
+  --text-web-body--line-height: 1.6;
+  --text-web-body--font-weight: 500;
+
+  --text-web-small: 14px; /* ən kiçik veb ölçüsü */
+  --text-web-small--line-height: 1.5;
+  --text-web-small--font-weight: 500;
+
+  --text-web-label: 13px; /* "(01) Tədris proqramları" */
+  --text-web-label--line-height: 1.2;
+  --text-web-label--letter-spacing: 0.02em;
+  --text-web-label--font-weight: 600;
+
+  --text-web-button: 16px; /* nav linki 15px */
+  --text-web-button--line-height: 1;
+  --text-web-button--letter-spacing: -0.01em;
+  --text-web-button--font-weight: 700;
+
+  --text-web-stat: 64px; /* Unbounded, mobil 44px — yalnız real rəqəm */
+  --text-web-stat--line-height: 1;
+  --text-web-stat--letter-spacing: -0.03em;
+  --text-web-stat--font-weight: 700;
+
+  /* ── Boşluq (spacing → web-*) ────────────────────────────────────────── */
+  --spacing-web-frame: 12px; /* çərçivəli kanvas, mobil 8px */
+  --spacing-web-frame-m: 8px;
+  --spacing-web-gutter: 40px; /* desktop kənar boşluq */
+  --spacing-web-gutter-m: 16px; /* mobil kənar boşluq */
+  --spacing-web-grid-gap: 24px; /* mobil 16px */
+  --spacing-web-mosaic-gap: 8px; /* mozaika / bento */
+  --spacing-web-section: 128px; /* bölmələr arası, desktop */
+  --spacing-web-section-m: 72px; /* bölmələr arası, mobil */
+
+  /* Konteyner — max-w-web (1280px), blog mətni max-w-web-prose (680px) */
+  --container-web: 1280px;
+  --container-web-prose: 680px;
+
+  /* ── Radius ──────────────────────────────────────────────────────────────
+     DİQQƏT: bunlar DesTech dəyərləridir, Tailwind default-ları DEYİL.
+     rounded-lg (56px) > rounded-xl (36px) — tokens.json-dakı kimi. */
+  --radius-sm: 12px; /* input, kiçik teq */
+  --radius-md: 28px; /* kart, sticker bloku */
+  --radius-lg: 56px; /* böyük panel, foto çərçivəsi */
+  --radius-xl: 36px; /* çərçivəli panel, mobil 24px */
+  --radius-xl-m: 24px;
+  --radius-mosaic: 18px; /* mozaika plitəsi 16–20px */
+  --radius-pill: 999px;
+
+  /* ── Kölgə ───────────────────────────────────────────────────────────────
+     Kölgə yalnız üzən elementlərdə. Rəngli panellərdə kölgə yoxdur. */
+  --shadow-float:
+    0 1px 2px rgba(21, 18, 40, 0.06), 0 16px 48px -12px rgba(21, 18, 40, 0.18);
+  --shadow-card:
+    0 1px 0 rgba(21, 18, 40, 0.04), 0 8px 24px -16px rgba(21, 18, 40, 0.2);
+  --shadow-glass:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 8px 32px -8px rgba(21, 18, 40, 0.25);
+  --shadow-sticker: 0 10px 24px rgba(21, 18, 40, 0.22);
+  --shadow-object: 0 48px 96px rgba(112, 12, 72, 0.35);
+}
+
+/* Breakpoint-lər (bp-sm 640, bp-md 768, bp-lg 1024, bp-xl 1280) Tailwind
+   default-ları ilə eynidir — yenidən təyin etməyə ehtiyac yoxdur. */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* sticky nav pill-in altına düşməmək üçün anchor offset */
+    scroll-padding-top: 88px;
+  }
+
+  body {
+    background-color: var(--color-web-bg);
+    color: var(--color-web-text);
+    font-family: var(--font-sans);
+    font-size: var(--text-web-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Fokus: 2px halqa, 2px offset (web-guidelines → Hallar və əlçatanlıq) */
+  :focus-visible {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Tünd və foto fonlarda ağ halqa */
+  .on-dark :focus-visible {
+    outline-color: var(--color-paper);
+  }
+}
+
+/* Şüşə — YALNIZ foto və ya rəngli blok üzərində.
+   Düz cloud fonda şüşə kart qoyma (web-guidelines.md → Etmə). */
+@layer components {
+  .glass {
+    background-color: var(--color-glass-light);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--color-glass-stroke);
+    box-shadow: var(--shadow-glass);
+  }
+
+  .glass-dark {
+    background-color: var(--color-glass-dark);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 8px 32px -8px rgba(21, 18, 40, 0.3);
+    color: var(--color-paper);
+  }
+}
+
+/* backdrop-filter dəstəklənməyəndə şüşə solid fona keçir */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  .glass-dark {
+    background-color: rgba(21, 18, 40, 0.9);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

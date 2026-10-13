@@ -1,0 +1,21 @@
+# Vercel CLI (`npx vercel`) ilə deploy edəndə yüklənməyən fayllar.
+#
+# ƏN VACİBİ: .env.local. O yüklənsə, production build lokal dəyərləri götürər
+# və service role açarı deployment paketinə düşər. Açarlar yalnız Vercel-in
+# Environment Variables panelindən gəlməlidir.
+
+.env
+.env.*
+!.env.example
+
+node_modules
+.next
+.git
+.vercel
+
+# Dizayn mənbəyi — sayta lazım deyil, yalnız istinad üçün
+design
+
+.DS_Store
+*.tsbuildinfo
+npm-debug.log*

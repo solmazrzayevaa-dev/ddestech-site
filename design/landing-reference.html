@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<title>DesTech — Dizayn akademiyası</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&amp;family=Unbounded:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f4f2ee;color:#151228;font-family:"Plus Jakarta Sans","Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#151228}a:hover{color:#b8226f}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #151228;outline-offset:2px}
+.dark a:focus-visible,.dark button:focus-visible{outline-color:#ffffff}
+.glass{background:rgba(255,255,255,0.62);-webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(255,255,255,0.45);box-shadow:inset 0 1px 0 rgba(255,255,255,0.55),0 8px 32px -8px rgba(21,18,40,0.25)}
+.glass-d{background:rgba(21,18,40,0.48);-webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(255,255,255,0.22);box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),0 8px 32px -8px rgba(21,18,40,0.3);color:#ffffff}
+.lbl{margin:0;font-size:13px;line-height:1.2;font-weight:600;letter-spacing:0.02em}
+.h2{margin:0;font-size:clamp(36px,4.6vw,64px);line-height:0.98;font-weight:600;letter-spacing:-0.045em}
+.soft{color:#8a8698}
+.pill{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:600;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:12px;height:52px;padding:0 8px 0 22px;border-radius:999px;font-size:15px;font-weight:600;text-decoration:none;white-space:nowrap;border:0;font-family:inherit;cursor:pointer}
+.btn .arw{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;transition:transform .3s}
+.btn:hover .arw{transform:rotate(-45deg)}
+.circ{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;border:0;cursor:pointer;flex:0 0 auto}
+.panel{border-radius:36px;overflow:hidden;position:relative}
+.in{width:100%;max-width:1280px;margin:0 auto;padding-left:clamp(16px,3vw,40px);padding-right:clamp(16px,3vw,40px)}
+.g12{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:8px}
+.tile{border-radius:18px;overflow:hidden;position:relative}
+.cap{position:absolute;left:10px;bottom:10px;display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:999px;font-size:12px;font-weight:600}
+.stripe{background:repeating-linear-gradient(135deg,#d9d4ca 0 2px,#e6e2da 2px 14px)}
+.field{display:flex;flex-direction:column;gap:8px}
+.field label{font-size:14px;font-weight:600}
+.field input,.field select,.field textarea{font:inherit;font-size:16px;font-weight:500;color:#151228;background:#ffffff;border:1.5px solid #5a566e;border-radius:12px;padding:0 16px;height:52px;width:100%}
+.field textarea{height:104px;padding:14px 16px;resize:vertical}
+.fade{-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.navlinks a{display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:600;text-decoration:none;color:#151228}
+.navlinks a:hover{background:#151228;color:#ffffff}
+.show-m{display:none !important}
+@media (max-width: 900px){
+.navlinks{display:none !important}
+.s12{grid-column:span 12 !important}
+.s6m{grid-column:span 6 !important}
+.hide-m{display:none !important}
+.show-m{display:inline-flex !important}
+}
+</style>
+</helmet>
+
+<div style="min-height: 100vh; background: #f4f2ee; padding: 12px; display: flex; flex-direction: column; gap: 12px;">
+
+<!-- NAV (floating glass pill) -->
+<header style="position: sticky; top: 12px; z-index: 30; display: flex; justify-content: center; height: 60px; padding: 0 8px;">
+<nav aria-label="Əsas naviqasiya" class="glass" style="width: 100%; max-width: 1180px; display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 60px; padding: 0 8px 0 8px; border-radius: 999px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 1px 2px rgba(21,18,40,0.06), 0 16px 48px -12px rgba(21,18,40,0.18);">
+<a href="#top" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: #151228;">
+<span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 999px; background: #151228;"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z" fill="#d6e04a"></path></svg></span>
+<span style="font-family: Unbounded, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.02em;">DesTech</span>
+</a>
+<div class="navlinks" style="display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 999px; background: rgba(21,18,40,0.06);">
+<a href="#proqramlar">Proqramlar</a>
+<a href="#isler">Tələbə işləri</a>
+<a href="#muellimler">Müəllimlər</a>
+<a href="#community">Community</a>
+<a href="#faq">Suallar</a>
+</div>
+<div style="display: flex; align-items: center; gap: 6px;">
+<a href="#muraciet" class="btn" style="height: 44px; padding: 0 6px 0 18px; background: #e5358c; color: #ffffff; font-size: 14px;">Müraciət et<span class="arw" style="width: 32px; height: 32px; background: #ffffff; color: #e5358c;"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+<button type="button" class="circ show-m" aria-label="Menyunu aç" style="background: #151228; color: #ffffff;"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 9h14M5 15h14"></path></svg></button>
+</div>
+</nav>
+</header>
+
+<!-- HERO: photo banner -->
+<section id="top" class="panel" style="margin-top: -72px; min-height: clamp(600px,80vh,860px); background: #151228; display: flex; flex-direction: column; justify-content: flex-end;">
+<img src="/images/hero-banner.jpg" alt="DesTech tələbələri birlikdə layihə üzərində işləyir" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 28%;">
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(21,18,40,0.28) 0%, rgba(21,18,40,0) 22%, rgba(21,18,40,0) 42%, rgba(21,18,40,0.62) 70%, rgba(21,18,40,0.86) 100%);"></div>
+<span class="pill glass hide-m" style="position: absolute; right: 20px; top: 96px; height: 34px; padding: 0 14px; color: #151228;">Onlayn və oflayn</span>
+<div class="in" style="position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px; padding-top: 140px; padding-bottom: clamp(28px,4vw,48px);">
+<div style="flex: 1 1 560px; display: flex; flex-direction: column; gap: 22px; max-width: 820px;">
+<h1 style="margin: 0; font-size: clamp(48px,7.2vw,108px); line-height: 0.92; font-weight: 600; letter-spacing: -0.055em; color: #ffffff;">Designer kimi<br>düşünməyi öyrən.</h1>
+<p style="margin: 0; max-width: 520px; font-size: clamp(17px,1.5vw,20px); line-height: 1.5; font-weight: 500; color: #ffffff;">Qrafik, motion və UX/UI dizayn proqramları — nəzəriyyə, vizual zövq və real layihələrlə.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+<a href="#muraciet" class="btn" style="height: 56px; padding: 0 8px 0 24px; background: #e5358c; color: #ffffff; font-size: 16px; font-weight: 700; box-shadow: 0 12px 32px -10px rgba(229,53,140,0.7);">Müraciət et<span class="arw" style="width: 40px; height: 40px; background: #ffffff; color: #e5358c;"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+<a href="#proqramlar" class="btn glass" style="height: 56px; padding: 0 24px; color: #151228; font-size: 16px;">Proqramlara bax</a>
+</div>
+</div>
+<div class="glass hide-m" style="flex: 0 0 310px; display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: 24px; color: #151228;">
+<div style="display: flex; justify-content: space-between; align-items: center;"><span style="font-size: 13px; font-weight: 600; color: #5a566e;">Növbəti qrup</span><span class="pill" style="height: 26px; background: #e5358c; color: #ffffff;">4 ay</span></div>
+<h2 style="margin: 0; font-size: 26px; line-height: 1.05; font-weight: 600; letter-spacing: -0.035em;">Qrafik dizayn</h2>
+<div style="height: 1px; background: rgba(21,18,40,0.14);"></div>
+<div style="display: flex; justify-content: space-between; align-items: baseline;"><span style="font-size: 13px; font-weight: 600;">Başlanğıc</span><span style="font-family: Unbounded, sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.02em;">01 noyabr</span></div>
+<a href="#muraciet" class="btn" style="justify-content: space-between; height: 48px; padding: 0 6px 0 18px; background: #151228; color: #ffffff; font-size: 14px;">Yerini ayır<span class="arw" style="width: 36px; height: 36px; background: #e5358c; color: #ffffff;"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+</div>
+</div>
+</section>
+
+<!-- STATEMENT -->
+<section style="padding: clamp(72px,9vw,128px) 0 clamp(48px,6vw,80px);">
+<div class="in" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px;">
+
+<p style="margin: 0; max-width: 820px; font-size: clamp(24px,2.7vw,38px); line-height: 1.22; font-weight: 500; letter-spacing: -0.025em;"><span class="soft">Sadəcə proqramı öyrətmirik —</span> designer kimi görməyi, düşünməyi və qərar verməyi öyrədirik. Nəzəriyyə, vizual zövq və real layihələrlə.</p>
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+<a href="#muraciet" class="btn" style="color: #ffffff; background-color: #e5358c">Müraciət et<span class="arw" style="background: #ffffff; color: #e5358c;"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+<a href="#proqramlar" class="btn" style="padding: 0 22px; background: #ffffff; color: #151228; box-shadow: 0 1px 0 rgba(21,18,40,0.04), 0 8px 24px -16px rgba(21,18,40,0.2);">Proqramlara bax</a>
+</div>
+</div>
+<div class="in" style="margin-top: clamp(56px,7vw,88px); display: flex; flex-direction: column; align-items: center; gap: 20px;">
+<p style="margin: 0; font-size: 13px; font-weight: 600; color: #5a566e;">Məzunlarımız bu komandalarda işləyir</p>
+<div class="fade" style="width: 100%; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px 52px;">
+<span style="font-size: 19px; font-weight: 700; letter-spacing: -0.02em; color: #8a8698; white-space: nowrap;">Paşa Bank</span>
+<span style="font-size: 19px; font-weight: 700; letter-spacing: -0.02em; color: #8a8698; white-space: nowrap;">Sinteks</span>
+<span style="font-size: 19px; font-weight: 700; letter-spacing: -0.02em; color: #8a8698; white-space: nowrap;">Dövlət Reklam Agentliyi</span>
+<span style="font-size: 19px; font-weight: 700; letter-spacing: -0.02em; color: #8a8698; white-space: nowrap;">AzInTelecom</span>
+<span style="font-size: 19px; font-weight: 700; letter-spacing: -0.02em; color: #8a8698; white-space: nowrap;">Okee Agency</span>
+<span style="font-size: 19px; font-weight: 700; letter-spacing: -0.02em; color: #8a8698; white-space: nowrap;">Soliton</span>
+</div>
+
+</div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="proqramlar" class="panel" style="background: #ebe8e1; padding: clamp(48px,6vw,88px) 0; scroll-margin-top: 90px;">
+<div class="in" style="display: flex; flex-direction: column; gap: 40px;">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px;">
+<div style="display: flex; flex-direction: column; gap: 18px; max-width: 760px;">
+<p class="lbl" style="color: #5a566e;">(01) Tədris proqramları</p>
+<h2 class="h2"><span class="soft">Üç proqram.</span><br>Bir düşüncə sistemi.</h2>
+</div>
+
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+
+<article style="display: flex; flex-direction: column; gap: 14px; padding: 12px; border-radius: 28px; background: #e5358c; color: #151228; text-decoration: none;">
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 12px 12px 4px;">
+<div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="pill" style="background: #ffffff; color: #151228;">4 ay</span><span class="pill" style="background: #ffffff; color: #151228;">Sıfırdan</span></div>
+<h3 style="margin: 0; font-size: clamp(28px,2.6vw,36px); line-height: 0.98; font-weight: 600; letter-spacing: -0.045em; color: #ffffff;">Qrafik<br>dizayn</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; font-weight: 500; color: #151228;">Kompozisiya, tipoqrafiya, rəng və konsepsiya — vizual düşüncənin təməli.</p>
+</div>
+<div class="tile" style="height: 300px; border-radius: 20px; background: radial-gradient(120% 90% at 20% 10%, #fff2f8 0%, #fbd3e8 55%, #f5b3d4 100%);">
+<div aria-hidden="true" style="position: absolute; width: 150px; height: 150px; border-radius: 999px; left: -20px; top: 24px; background: radial-gradient(circle at 32% 28%, #ffffff 0%, #ff8cc4 18%, #e5358c 48%, #9a1a5c 100%); box-shadow: 0 28px 40px -14px rgba(154,26,92,0.55);"></div>
+<div aria-hidden="true" style="position: absolute; width: 112px; height: 112px; border-radius: 999px; right: 18px; top: 58px; border: 22px solid #efea4d; box-shadow: inset -6px -8px 12px rgba(120,110,0,0.35), inset 6px 6px 10px rgba(255,255,255,0.8), 0 18px 28px -10px rgba(120,110,0,0.45); transform: rotate(-18deg) scaleY(0.82);"></div>
+<div aria-hidden="true" class="glass" style="position: absolute; left: 50%; top: 46%; width: 200px; padding: 16px; border-radius: 20px; transform: translate(-50%,-50%) rotate(-6deg); display: flex; flex-direction: column; gap: 10px; background: rgba(255,255,255,0.38);">
+<div style="display: flex; align-items: flex-end; justify-content: space-between;"><span style="font-size: 64px; line-height: 0.8; font-weight: 600; letter-spacing: -0.06em; color: #151228;">Aa</span><span style="font-size: 11px; font-weight: 700; color: #151228;">Jakarta 600</span></div>
+<div style="height: 1px; background: rgba(21,18,40,0.25);"></div>
+<div style="display: flex; gap: 6px;"><span style="width: 26px; height: 26px; border-radius: 8px; background: #e5358c;"></span><span style="width: 26px; height: 26px; border-radius: 8px; background: #efea4d;"></span><span style="width: 26px; height: 26px; border-radius: 8px; background: #2448e0;"></span><span style="width: 26px; height: 26px; border-radius: 8px; background: #151228;"></span></div>
+</div>
+<button type="button" onClick="{{openG}}" class="glass btn" style="position: absolute; left: 10px; bottom: 10px; z-index: 3; height: 44px; padding: 0 6px 0 16px; font-size: 14px; color: #151228;">Ətraflı<span class="arw" style="width: 32px; height: 32px; background: #151228; color: #ffffff;"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></button>
+<span class="pill" style="position: absolute; right: 10px; top: 10px; z-index: 3; background: #151228; color: #ffffff;">250 ₼ / ay</span>
+</div>
+</article>
+
+
+
+<article style="display: flex; flex-direction: column; gap: 14px; padding: 12px; border-radius: 28px; background: #efea4d; color: #151228; text-decoration: none;">
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 12px 12px 4px;">
+<div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="pill" style="background: #ffffff; color: #151228;">4 ay</span><span class="pill" style="background: #ffffff; color: #151228;">Dizaynerlər üçün</span></div>
+<h3 style="margin: 0; font-size: clamp(28px,2.6vw,36px); line-height: 0.98; font-weight: 600; letter-spacing: -0.045em; color: #151228;">Motion<br>dizayn</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; font-weight: 500; color: #151228;">Statik dizaynını hərəkətə gətir. Qrafik dizaynla tanış olanlar üçün.</p>
+</div>
+<div class="tile" style="height: 300px; border-radius: 20px; background: radial-gradient(120% 90% at 80% 0%, #fffde0 0%, #f6f1a6 55%, #e6dd5c 100%);">
+<svg aria-hidden="true" viewBox="0 0 300 300" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%;"><path d="M20 210 C 90 60, 170 60, 280 120" fill="none" stroke="#151228" stroke-width="2" stroke-dasharray="4 8" opacity="0.45"></path></svg>
+<div aria-hidden="true" style="position: absolute; width: 38px; height: 38px; border-radius: 999px; left: 14%; top: 46%; background: radial-gradient(circle at 32% 28%, #ffffff 0%, #7d94ff 22%, #2448e0 60%, #1631a6 100%); opacity: 0.25; filter: blur(1px);"></div>
+<div aria-hidden="true" style="position: absolute; width: 54px; height: 54px; border-radius: 999px; left: 30%; top: 24%; background: radial-gradient(circle at 32% 28%, #ffffff 0%, #7d94ff 22%, #2448e0 60%, #1631a6 100%); opacity: 0.5;"></div>
+<div aria-hidden="true" style="position: absolute; width: 92px; height: 92px; border-radius: 999px; left: 56%; top: 14%; background: radial-gradient(circle at 32% 28%, #ffffff 0%, #7d94ff 20%, #2448e0 55%, #1631a6 100%); box-shadow: 0 24px 34px -12px rgba(22,49,166,0.6);"></div>
+<div aria-hidden="true" class="glass" style="position: absolute; left: 16px; right: 16px; bottom: 64px; padding: 12px 14px; border-radius: 16px; display: flex; flex-direction: column; gap: 8px; background: rgba(255,255,255,0.42);">
+<div style="display: flex; align-items: center; gap: 10px;"><span style="width: 22px; height: 22px; border-radius: 999px; background: #151228; display: inline-flex; align-items: center; justify-content: center;"><svg width="10" height="10" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#efea4d"></path></svg></span><span style="font-size: 11px; font-weight: 700; color: #151228;">00:02:14</span><span style="flex: 1; height: 2px; background: rgba(21,18,40,0.2); position: relative;"><span style="position: absolute; left: 0; top: 0; height: 2px; width: 58%; background: #151228;"></span></span></div>
+<div style="position: relative; height: 12px;"><span style="position: absolute; left: 0; right: 0; top: 5px; height: 2px; background: rgba(21,18,40,0.15);"></span><span style="position: absolute; left: 8%; top: 1px; width: 10px; height: 10px; background: #151228; transform: rotate(45deg);"></span><span style="position: absolute; left: 34%; top: 1px; width: 10px; height: 10px; background: #2448e0; transform: rotate(45deg);"></span><span style="position: absolute; left: 58%; top: 1px; width: 10px; height: 10px; background: #e5358c; transform: rotate(45deg);"></span><span style="position: absolute; left: 86%; top: 1px; width: 10px; height: 10px; background: #151228; transform: rotate(45deg);"></span></div>
+</div>
+<button type="button" onClick="{{openM}}" class="glass btn" style="position: absolute; left: 10px; bottom: 10px; z-index: 3; height: 44px; padding: 0 6px 0 16px; font-size: 14px; color: #151228;">Ətraflı<span class="arw" style="width: 32px; height: 32px; background: #151228; color: #ffffff;"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></button>
+<span class="pill" style="position: absolute; right: 10px; top: 10px; z-index: 3; background: #151228; color: #ffffff;">250 ₼ / ay</span>
+</div>
+</article><article style="display: flex; flex-direction: column; gap: 14px; padding: 12px; border-radius: 28px; color: #ffffff; text-decoration: none; background-color: #44479a">
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 12px 12px 4px;">
+<div style="display: flex; flex-wrap: wrap; gap: 6px;"><span class="pill" style="background: rgb(255, 255, 255); color: rgb(21, 18, 40)">4 ay</span><span class="pill" style="background: rgb(255, 255, 255); color: rgb(21, 18, 40)">Sıfırdan</span></div>
+<h3 style="margin: 0; font-size: clamp(28px,2.6vw,36px); line-height: 0.98; font-weight: 600; letter-spacing: -0.045em; color: #ffffff">UX/UI dizayn</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; font-weight: 500; color: #ffffff">İstifadəçini anlamaqdan prototipə qədər — tədqiqat, wireframe və interfeys dizaynı.</p>
+</div>
+<div class="tile" style="height: 300px; border-radius: 20px; background: radial-gradient(120% 90% at 20% 0%, #6d70c9 0%, #44479a 50%, #2a2c6b 100%);">
+<div aria-hidden="true" style="position: absolute; width: 96px; height: 96px; border-radius: 999px; right: -14px; top: 30px; background: radial-gradient(circle at 32% 28%, #ffffff 0%, #eef59a 18%, #d6e04a 50%, #8a9418 100%); box-shadow: 0 22px 32px -12px rgba(0,0,0,0.45);"></div>
+<div aria-hidden="true" style="position: absolute; width: 64px; height: 64px; border-radius: 18px; left: 18px; top: 52px; background: linear-gradient(145deg, #ff8cc4 0%, #e5358c 45%, #9a1a5c 100%); transform: rotate(-14deg); box-shadow: inset 4px 4px 8px rgba(255,255,255,0.45), 0 20px 28px -10px rgba(0,0,0,0.45);"></div>
+<div aria-hidden="true" class="glass" style="position: absolute; left: 50%; top: 44%; width: 150px; height: 196px; padding: 12px; border-radius: 24px; transform: translate(-50%,-50%) rotate(4deg); display: flex; flex-direction: column; gap: 8px; background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.5);">
+<div style="display: flex; justify-content: space-between; align-items: center;"><span style="width: 22px; height: 22px; border-radius: 999px; background: rgba(255,255,255,0.85);"></span><span style="width: 40px; height: 6px; border-radius: 4px; background: rgba(255,255,255,0.7);"></span></div>
+<span style="height: 54px; border-radius: 12px; background: rgba(255,255,255,0.55);"></span>
+<span style="height: 7px; width: 80%; border-radius: 4px; background: rgba(255,255,255,0.85);"></span>
+<span style="height: 7px; width: 56%; border-radius: 4px; background: rgba(255,255,255,0.55);"></span>
+<span style="margin-top: auto; height: 28px; border-radius: 999px; background: #d6e04a; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #151228;">Davam et</span>
+</div>
+<svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" style="position: absolute; left: 62%; top: 62%; filter: drop-shadow(0 6px 8px rgba(0,0,0,0.35));"><path d="M5 3l14 7-6 2-2 6z" fill="#ffffff" stroke="#151228" stroke-width="1.5" stroke-linejoin="round"></path></svg>
+<button type="button" onClick="{{openU}}" class="glass btn" style="position: absolute; left: 10px; bottom: 10px; z-index: 3; height: 44px; padding: 0 6px 0 16px; font-size: 14px; color: #151228;">Ətraflı<span class="arw" style="width: 32px; height: 32px; background: #151228; color: #ffffff;"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></button>
+<span class="pill" style="position: absolute; right: 10px; top: 10px; z-index: 3; background: #ffffff; color: #151228;">250 ₼ / ay</span>
+</div>
+</article>
+
+
+
+</div>
+</div>
+</section>
+
+<!-- ABOUT: bento -->
+<section id="haqqimizda" style="padding: clamp(72px,9vw,128px) 0; scroll-margin-top: 90px;">
+<div class="in" style="display: flex; flex-direction: column; gap: 40px;">
+<div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px;">
+
+<h2 class="h2" style="max-width: 900px;"><span class="soft">Dərs bitəndə</span> öyrənmə dayanmır</h2>
+</div>
+<div class="g12" style="gap: 12px;">
+<div class="dark s12" style="grid-column: span 5; grid-row: span 2; display: flex; flex-direction: column; gap: 20px; padding: 32px; border-radius: 28px; background: #151228; color: #ffffff; box-shadow: 0 1px 2px rgba(21,18,40,0.06), 0 24px 56px -20px rgba(21,18,40,0.35);">
+<p class="lbl" style="color: #d6e04a;">Fəlsəfəmiz</p>
+<p style="margin: 0; font-size: clamp(22px,2vw,28px); line-height: 1.25; font-weight: 500; letter-spacing: -0.025em; color: #ffffff;">Adobe proqramlarını bilən insan yox — kompozisiyanı, tipoqrafiyanı və rəngi əsaslandıra bilən, brief-i oxuyan, problemi həll edən designer yetişdiririk.</p>
+<div style="margin-top: auto; display: flex; align-items: center; gap: 12px;">
+<img src="/images/teacher-solmaz.jpg" alt="" style="width: 48px; height: 48px; border-radius: 999px; object-fit: cover; object-position: 50% 18%; border: 2px solid #ffffff;">
+<div><div style="font-size: 15px; font-weight: 700;">Solmaz Rzayeva</div><div style="font-size: 13px; font-weight: 500; color: #ffffff;">Qurucu · 10 il qrafik və UX/UI dizayn</div></div>
+</div>
+<a href="#muellimler" style="display: flex; align-items: center; justify-content: center; height: 52px; border-radius: 16px; background: #ffffff; color: #151228; font-size: 15px; font-weight: 600; text-decoration: none;">Müəllimlərlə tanış ol</a>
+</div>
+<div class="s12" style="grid-column: span 7; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 28px; border-radius: 28px; background: #ffffff; box-shadow: 0 1px 0 rgba(21,18,40,0.04), 0 8px 24px -16px rgba(21,18,40,0.2);">
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 14px; border-bottom: 1px solid #e4e0d8;"><span style="font-family: Unbounded, sans-serif; font-size: clamp(40px,4vw,56px); font-weight: 600; letter-spacing: -0.04em; line-height: 1;">2×</span><span style="font-size: 13px; font-weight: 600; color: #5a566e;">həftədə</span></div>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; font-weight: 500; color: #5a566e;">Canlı dərs, hər biri 2 saat. Onlayn və ya oflayn — formatı sən seçirsən.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 28px; border-radius: 28px; background: #ffffff; box-shadow: 0 1px 0 rgba(21,18,40,0.04), 0 8px 24px -16px rgba(21,18,40,0.2);">
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 14px; border-bottom: 1px solid #e4e0d8;"><span style="font-family: Unbounded, sans-serif; font-size: clamp(40px,4vw,56px); font-weight: 600; letter-spacing: -0.04em; line-height: 1;">100%</span><span style="font-size: 13px; font-weight: 600; color: #5a566e;">dərs yazılır</span></div>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; font-weight: 500; color: #5a566e;">Hər dərsin recording-i və PDF materialı Classroom-da. Buraxsan da geri qalmırsan.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 28px; border-radius: 28px; background: #d6e04a;">
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 14px; border-bottom: 1px solid rgba(21,18,40,0.18);"><span style="font-family: Unbounded, sans-serif; font-size: clamp(40px,4vw,56px); font-weight: 600; letter-spacing: -0.04em; line-height: 1;">LAB</span><span style="font-size: 13px; font-weight: 600; color: #151228;">həftədə 1</span></div>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; font-weight: 500; color: #151228;">Əlavə saat: tapşırıqlar üzərində işləyir, suallarını yerində verirsən.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 28px; border-radius: 28px; background: #ffffff; box-shadow: 0 1px 0 rgba(21,18,40,0.04), 0 8px 24px -16px rgba(21,18,40,0.2);">
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 14px; border-bottom: 1px solid #e4e0d8;"><span style="font-family: Unbounded, sans-serif; font-size: clamp(40px,4vw,56px); font-weight: 600; letter-spacing: -0.04em; line-height: 1;">1:1</span><span style="font-size: 13px; font-weight: 600; color: #5a566e;">mentor</span></div>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; font-weight: 500; color: #5a566e;">Dərsdənkənar saatlarda mentor səninlə görüşür, suallarını cavablandırır.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- STUDENT WORKS: mosaic -->
+<section id="isler" class="panel" style="background: #151228; padding: clamp(48px,6vw,88px) 0 8px; scroll-margin-top: 90px;">
+<div class="in dark" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 40px;">
+<div style="display: flex; flex-direction: column; gap: 18px;">
+<p class="lbl" style="color: #d6e04a;">(03) Tələbə işləri</p>
+<h2 class="h2" style="color: #ffffff;"><span style="color: #8a8698;">Kursda</span> hazırlanan işlər</h2>
+</div>
+<div role="group" aria-label="Proqrama görə süz" style="display: flex; gap: 2px; padding: 4px; border-radius: 999px; background: rgba(255,255,255,0.08);">
+<button type="button" style="height: 36px; padding: 0 16px; border: 0; border-radius: 999px; background: #ffffff; color: #151228; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;">Hamısı</button>
+<button type="button" style="height: 36px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #ffffff; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;">Qrafik</button>
+<button type="button" style="height: 36px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #ffffff; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;">Motion</button>
+
+</div>
+</div>
+<div class="g12" style="padding: 0 8px;">
+<figure class="tile s12" style="margin: 0; grid-column: span 7; height: clamp(280px,30vw,440px); background: #efea4d;">
+<div aria-hidden="true" style="position: absolute; left: 6%; top: 8%; font-size: clamp(64px,9vw,150px); font-weight: 600; letter-spacing: -0.065em; line-height: 0.82; color: #151228;">Bakı<br>Dizayn<br>Həftəsi</div>
+<div aria-hidden="true" style="position: absolute; width: 30%; aspect-ratio: 1; border-radius: 999px; background: #2448e0; right: 6%; bottom: 10%;"></div>
+<figcaption class="cap glass">[Poster seriyası] — [Tələbə adı]</figcaption>
+</figure>
+<figure class="tile stripe s12" style="margin: 0; grid-column: span 5; height: clamp(280px,30vw,440px);">
+<figcaption class="cap glass">[Brend identika] — [Tələbə adı]</figcaption>
+</figure>
+<figure class="tile s6m" style="margin: 0; grid-column: span 3; height: clamp(200px,20vw,280px); background: #e5358c;">
+<div aria-hidden="true" style="position: absolute; inset: 20%; border-radius: 999px; border: 2px solid #ffffff;"></div>
+<div aria-hidden="true" style="position: absolute; inset: 36%; border-radius: 999px; background: #ffffff;"></div>
+<figcaption class="cap glass-d">[Loqo] — [Tələbə]</figcaption>
+</figure>
+<figure class="tile s6m" style="margin: 0; grid-column: span 3; height: clamp(200px,20vw,280px); background: #2448e0;">
+<div aria-hidden="true" style="position: absolute; left: 12%; right: 12%; top: 22%; display: flex; flex-direction: column; gap: 10px;"><span style="height: 14px; width: 80%; background: #d6e04a; border-radius: 4px;"></span><span style="height: 14px; width: 55%; background: rgba(255,255,255,0.7); border-radius: 4px;"></span><span style="height: 14px; width: 68%; background: rgba(255,255,255,0.4); border-radius: 4px;"></span></div>
+<figcaption class="cap glass-d">[Motion kadr] — [Tələbə]</figcaption>
+</figure>
+<figure class="tile stripe s12" style="margin: 0; grid-column: span 6; height: clamp(200px,20vw,280px);">
+<figcaption class="cap glass">[Qablaşdırma] — [Tələbə adı]</figcaption>
+</figure>
+</div>
+
+</section>
+
+<!-- TEACHERS -->
+<section id="muellimler" style="padding: clamp(72px,9vw,128px) 0 0; scroll-margin-top: 90px;">
+<div class="in g12" style="gap: 12px; align-items: stretch;">
+<div class="s12" style="grid-column: span 4; display: flex; flex-direction: column; gap: 20px; padding: 8px 8px 8px 0;">
+<p class="lbl" style="color: #5a566e;">(04) Müəllimlər</p>
+<h2 class="h2" style="width: 286px"><span class="soft">Sahədə işləyən</span> dizaynerlərdən öyrən</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; font-weight: 500; color: #5a566e;">Müəllimlərimiz real layihələrdə işləyir — dərsdə gördüyün qərarlar sənaye təcrübəsindən gəlir.</p>
+<div style="margin-top: auto; display: flex; gap: 8px;">
+<button type="button" class="circ" aria-label="Əvvəlki müəllim" style="background: transparent; border: 1.5px solid #151228; color: #151228;"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<button type="button" class="circ" aria-label="Növbəti müəllim" style="background: #151228; color: #ffffff;"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></button>
+</div>
+</div>
+<article class="tile s12" style="grid-column: span 4; height: clamp(420px,38vw,540px); border-radius: 28px; background: #d9d4ca;">
+<img src="/images/teacher-solmaz.jpg" alt="Solmaz Rzayeva — qrafik və UX/UI dizayner" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%;">
+<span class="pill glass" style="position: absolute; left: 14px; top: 14px; color: #151228;">Qurucu</span>
+<div class="glass" style="position: absolute; left: 10px; right: 10px; bottom: 10px; padding: 18px; border-radius: 22px; display: flex; justify-content: space-between; align-items: flex-end; gap: 12px;">
+<div><h3 style="margin: 0; font-size: 22px; line-height: 1.1; font-weight: 600; letter-spacing: -0.03em; color: #151228;">Solmaz Rzayeva</h3><p style="margin: 6px 0 0; font-size: 14px; font-weight: 500; color: #151228;">Qrafik və UX/UI dizayner</p></div>
+<div style="display: flex; gap: 6px;"><a href="#" class="circ" aria-label="Behance" style="width: 36px; height: 36px; background: #151228; color: #ffffff; font-size: 12px; font-weight: 700; text-decoration: none;">Bē</a><a href="#" class="circ" aria-label="Instagram" style="width: 36px; height: 36px; background: #151228; color: #ffffff; text-decoration: none;"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle></svg></a></div>
+</div>
+</article>
+<article class="tile s12" style="grid-column: span 4; height: clamp(420px,38vw,540px); border-radius: 28px; background: #d9d4ca;">
+<img src="/images/teacher-reshad.jpg" alt="Rəşad Əhməd — motion dizayner" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;">
+<span class="pill glass" style="position: absolute; left: 14px; top: 14px; color: #151228;">Motion dizayn</span>
+<div class="glass" style="position: absolute; left: 10px; right: 10px; bottom: 10px; padding: 18px; border-radius: 22px; display: flex; justify-content: space-between; align-items: flex-end; gap: 12px;">
+<div><h3 style="margin: 0; font-size: 22px; line-height: 1.1; font-weight: 600; letter-spacing: -0.03em; color: #151228;">Rəşad Əhməd</h3><p style="margin: 6px 0 0; font-size: 14px; font-weight: 500; color: #151228;">Motion dizayner · 10 il</p></div>
+<div style="display: flex; gap: 6px;"><a href="#" class="circ" aria-label="Behance" style="width: 36px; height: 36px; background: #151228; color: #ffffff; font-size: 12px; font-weight: 700; text-decoration: none;">Bē</a><a href="#" class="circ" aria-label="Instagram" style="width: 36px; height: 36px; background: #151228; color: #ffffff; text-decoration: none;"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle></svg></a></div>
+</div>
+</article>
+</div>
+</section>
+
+<!-- TESTIMONIAL: centered statement -->
+<section id="reyler" style="padding: clamp(96px,11vw,160px) 0; scroll-margin-top: 90px;">
+<div class="in" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 32px;">
+<div style="display: flex; align-items: center; gap: 10px;"><p class="lbl" style="color: #5a566e;">(05) Tələbə rəyləri</p><span class="pill" style="height: 24px; font-size: 11px; background: #ffffff; color: #5a566e; border: 1px dashed #c9c4ba;">Nümunə mətn</span></div>
+<blockquote style="margin: 0; max-width: 900px; min-height: 3.7em; font-size: clamp(24px,2.7vw,38px); line-height: 1.22; font-weight: 500; letter-spacing: -0.025em;">“<span class="soft">{{q.lead}}</span> {{q.text}}”</blockquote>
+<div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center;">
+<div style="display: flex;">
+<sc-for list="{{dots}}" as="d" hint-placeholder-count="3"><span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 999px; background: {{d.color}}; color: {{d.fg}}; font-size: 16px; font-weight: 700; border: 3px solid #f4f2ee; margin-left: {{d.ml}}; opacity: {{d.op}};">{{d.ini}}</span></sc-for>
+</div>
+<div style="text-align: left;"><div style="font-size: 15px; font-weight: 700;">{{q.name}}</div><div style="font-size: 13px; font-weight: 500; color: #5a566e;">{{q.meta}}</div></div>
+</div>
+<div style="display: flex; gap: 8px;">
+<button type="button" class="circ" onClick="{{prev}}" aria-label="Əvvəlki rəy" style="background: transparent; border: 1.5px solid #151228; color: #151228;"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<button type="button" class="circ" onClick="{{next}}" aria-label="Növbəti rəy" style="background: #151228; color: #ffffff;"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></button>
+</div>
+</div>
+</section>
+
+<!-- COMMUNITY: split panels with glass shape -->
+<section id="community" class="g12" style="gap: 12px; scroll-margin-top: 90px;">
+<div class="panel s12" style="grid-column: span 5; background: #d6e04a; padding: clamp(32px,4vw,56px); display: flex; flex-direction: column; gap: 22px; min-height: 560px;">
+<p class="lbl" style="color: #151228;">(06) Community</p>
+<h2 class="h2">Kurs bitir.<br>Community davam edir.</h2>
+<p style="margin: 0; font-size: clamp(17px,1.4vw,19px); line-height: 1.55; font-weight: 500; max-width: 440px;">Workshop-lar, portfolio müzakirələri və dizaynerlərlə görüşlər — tələbələr və məzunlar üçün açıq.</p>
+<div style="margin-top: auto; display: flex; flex-wrap: wrap; gap: 10px;">
+<a href="[WHATSAPP_COMMUNITY_LINK]" class="btn" style="background: #151228; color: #ffffff;">Community-yə qoşul<span class="arw" style="background: #d6e04a; color: #151228;"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+<a href="https://instagram.com/destechcom" class="btn" style="padding: 0 22px; background: transparent; border: 1.5px solid #151228; color: #151228;">@destechcom</a>
+</div>
+</div>
+<div class="panel s12" style="grid-column: span 7; min-height: 560px; background: #151228;">
+<img src="/images/event-1.jpg" alt="DesTech-in keçən tədbirində iştirakçılar çıxışı dinləyir" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 62%;">
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(21,18,40,0) 45%, rgba(21,18,40,0.55) 100%);"></div>
+<span class="pill glass" style="position: absolute; left: 16px; top: 16px; color: #151228;">Keçən tədbirdən</span>
+<figure class="glass hide-m" style="position: absolute; right: 16px; top: 16px; margin: 0; width: 168px; padding: 6px; border-radius: 22px;"><img src="/images/event-2.jpg" alt="Tədbirdə çıxış edən spiker" style="display: block; width: 100%; height: 200px; object-fit: cover; object-position: 60% 40%; border-radius: 16px;"></figure>
+<article class="glass" style="position: absolute; right: 14px; bottom: 14px; left: 14px; max-width: 440px; margin-left: auto; padding: 20px; border-radius: 24px; display: flex; flex-direction: column; gap: 12px; color: #151228;">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px;"><span class="pill" style="background: #151228; color: #ffffff;"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 999px; background: #d6e04a;"></span>Növbəti tədbir</span><span style="font-family: Unbounded, sans-serif; font-size: 18px; font-weight: 600;">31 oktyabr</span></div>
+<h3 style="margin: 0; font-size: 26px; line-height: 1.08; font-weight: 600; letter-spacing: -0.035em;">AI dünyasında dizayner olmaq</h3>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;"><span style="font-size: 14px; font-weight: 600;">[Saat] · [Məkan]</span><a href="#" class="btn" style="height: 44px; padding: 0 6px 0 18px; background: #e5358c; color: #ffffff; font-size: 14px;">Qeydiyyat<span class="arw" style="width: 32px; height: 32px; background: #ffffff; color: #e5358c;"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a></div>
+</article>
+</div>
+</section>
+
+<!-- FAQ: editorial list -->
+<section id="faq" style="padding: clamp(72px,9vw,128px) 0; scroll-margin-top: 90px;">
+<div class="in" style="display: flex; flex-wrap: wrap; gap: 40px 64px;">
+<div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 18px;">
+<p class="lbl" style="color: #5a566e;">(08) Suallar</p>
+<h2 class="h2"><span class="soft">Tez-tez</span> verilən suallar</h2>
+<div style="margin-top: 12px; display: flex; align-items: center; gap: 14px; padding: 14px 14px 14px 18px; border-radius: 22px; background: #ffffff; box-shadow: 0 1px 0 rgba(21,18,40,0.04), 0 8px 24px -16px rgba(21,18,40,0.2); align-self: flex-start;">
+<span style="font-size: 15px; font-weight: 600;">Cavab tapmadın?</span>
+<a href="#muraciet" class="btn" style="height: 40px; padding: 0 16px; background: #151228; color: #ffffff; font-size: 14px;">Bizə yaz</a>
+</div>
+</div>
+<div style="flex: 2 1 560px; display: flex; flex-direction: column; border-top: 1px solid #d6d1c7;">
+
+<div style="border-bottom: 1px solid #d6d1c7;">
+<button type="button" onClick="{{t0}}" aria-expanded="{{o0}}" style="width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 26px 0; background: transparent; border: 0; cursor: pointer; font-family: inherit; text-align: left; color: #151228;"><span style="display: flex; gap: 20px; align-items: baseline;"><span style="font-size: 13px; font-weight: 600; color: #5a566e;">01</span><span style="font-size: clamp(18px,1.6vw,22px); font-weight: 600; letter-spacing: -0.02em;">Dərslər onlayndır, yoxsa oflayn?</span></span><span aria-hidden="true" class="circ" style="width: 40px; height: 40px; background: {{b0}}; color: {{c0}}; font-size: 20px; font-weight: 500;">{{i0}}</span></button>
+<sc-if value="{{o0}}" hint-placeholder-val="{{ true }}"><p style="margin: 0; padding: 0 56px 28px 40px; font-size: 16px; line-height: 1.6; font-weight: 500; color: #5a566e;">Hər ikisi mümkündür. Dərslər həftədə 2 dəfə, hər biri 2 saat keçirilir — formatı müraciət zamanı seçirsən.</p></sc-if>
+</div>
+
+<div style="border-bottom: 1px solid #d6d1c7;">
+<button type="button" onClick="{{t1}}" aria-expanded="{{o1}}" style="width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 26px 0; background: transparent; border: 0; cursor: pointer; font-family: inherit; text-align: left; color: #151228;"><span style="display: flex; gap: 20px; align-items: baseline;"><span style="font-size: 13px; font-weight: 600; color: #5a566e;">02</span><span style="font-size: clamp(18px,1.6vw,22px); font-weight: 600; letter-spacing: -0.02em;">Dərsə qatıla bilməsəm nə olur?</span></span><span aria-hidden="true" class="circ" style="width: 40px; height: 40px; background: {{b1}}; color: {{c1}}; font-size: 20px; font-weight: 500;">{{i1}}</span></button>
+<sc-if value="{{o1}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 0 56px 28px 40px; font-size: 16px; line-height: 1.6; font-weight: 500; color: #5a566e;">Hər dərsin yazısı və PDF materialları Classroom-a yüklənir. Suallarını mentora və ya həftəlik LAB saatında verə bilərsən.</p></sc-if>
+</div>
+
+<div style="border-bottom: 1px solid #d6d1c7;">
+<button type="button" onClick="{{t2}}" aria-expanded="{{o2}}" style="width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 26px 0; background: transparent; border: 0; cursor: pointer; font-family: inherit; text-align: left; color: #151228;"><span style="display: flex; gap: 20px; align-items: baseline;"><span style="font-size: 13px; font-weight: 600; color: #5a566e;">03</span><span style="font-size: clamp(18px,1.6vw,22px); font-weight: 600; letter-spacing: -0.02em;">Mentor və LAB nədir?</span></span><span aria-hidden="true" class="circ" style="width: 40px; height: 40px; background: {{b2}}; color: {{c2}}; font-size: 20px; font-weight: 500;">{{i2}}</span></button>
+<sc-if value="{{o2}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 0 56px 28px 40px; font-size: 16px; line-height: 1.6; font-weight: 500; color: #5a566e;">Mentor dərsdənkənar saatlarda səninlə görüşür və suallarını cavablandırır. LAB həftədə bir dəfə keçirilən əlavə saatdır: tapşırıqlar üzərində işləyir, yerində kömək alırsan.</p></sc-if>
+</div>
+
+<div style="border-bottom: 1px solid #d6d1c7;">
+<button type="button" onClick="{{t3}}" aria-expanded="{{o3}}" style="width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 26px 0; background: transparent; border: 0; cursor: pointer; font-family: inherit; text-align: left; color: #151228;"><span style="display: flex; gap: 20px; align-items: baseline;"><span style="font-size: 13px; font-weight: 600; color: #5a566e;">04</span><span style="font-size: clamp(18px,1.6vw,22px); font-weight: 600; letter-spacing: -0.02em;">Sıfırdan başlaya bilərəmmi?</span></span><span aria-hidden="true" class="circ" style="width: 40px; height: 40px; background: {{b3}}; color: {{c3}}; font-size: 20px; font-weight: 500;">{{i3}}</span></button>
+<sc-if value="{{o3}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 0 56px 28px 40px; font-size: 16px; line-height: 1.6; font-weight: 500; color: #5a566e;">Bəli. Qrafik dizayn və UX/UI dizayn sıfırdan başlayanlar üçündür. Motion dizayn proqramı qrafik dizayn biliyi olanlar üçündür.</p></sc-if>
+</div>
+
+<div style="border-bottom: 1px solid #d6d1c7;">
+<button type="button" onClick="{{t4}}" aria-expanded="{{o4}}" style="width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 26px 0; background: transparent; border: 0; cursor: pointer; font-family: inherit; text-align: left; color: #151228;"><span style="display: flex; gap: 20px; align-items: baseline;"><span style="font-size: 13px; font-weight: 600; color: #5a566e;">05</span><span style="font-size: clamp(18px,1.6vw,22px); font-weight: 600; letter-spacing: -0.02em;">Ödəniş necədir?</span></span><span aria-hidden="true" class="circ" style="width: 40px; height: 40px; background: {{b4}}; color: {{c4}}; font-size: 20px; font-weight: 500;">{{i4}}</span></button>
+<sc-if value="{{o4}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 0 56px 28px 40px; font-size: 16px; line-height: 1.6; font-weight: 500; color: #5a566e;">Bütün proqramlarda ödəniş aylıqdır — 250 ₼ / ay. Proqramların müddəti 4 aydır.</p></sc-if>
+</div>
+
+<div style="border-bottom: 1px solid #d6d1c7;">
+<button type="button" onClick="{{t5}}" aria-expanded="{{o5}}" style="width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 26px 0; background: transparent; border: 0; cursor: pointer; font-family: inherit; text-align: left; color: #151228;"><span style="display: flex; gap: 20px; align-items: baseline;"><span style="font-size: 13px; font-weight: 600; color: #5a566e;">06</span><span style="font-size: clamp(18px,1.6vw,22px); font-weight: 600; letter-spacing: -0.02em;">Kurs sonunda diplom verilirmi?</span></span><span aria-hidden="true" class="circ" style="width: 40px; height: 40px; background: {{b5}}; color: {{c5}}; font-size: 20px; font-weight: 500;">{{i5}}</span></button>
+<sc-if value="{{o5}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 0 56px 28px 40px; font-size: 16px; line-height: 1.6; font-weight: 500; color: #5a566e;">Bəli, proqramı bitirən tələbəyə diplom verilir. [Diplom şərtlərini əlavə et: tapşırıqlar, final layihə.]</p></sc-if>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- APPLICATION -->
+<section id="muraciet" class="panel dark" style="background: #151228; color: #ffffff; padding: clamp(32px,5vw,72px); scroll-margin-top: 90px;">
+
+<div class="in" style="position: relative; display: flex; flex-wrap: wrap; gap: 48px; padding: 0;">
+<div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 22px;">
+<p class="lbl" style="color: #d6e04a;">(09) Müraciət</p>
+<h2 class="h2" style="color: #ffffff;"><span style="color: #8a8698;">Növbəti qrupda</span><br>yerini ayır</h2>
+<span class="pill" style="align-self: flex-start; background: rgba(255,255,255,0.1); color: #ffffff;"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 999px; background: #d6e04a;"></span>Qrafik dizayn · 01 noyabr</span>
+<p style="margin: 0; font-size: clamp(17px,1.4vw,19px); line-height: 1.55; font-weight: 500; max-width: 420px; color: #ffffff;">Formu doldur — proqram, cədvəl və format barədə səninlə əlaqə saxlayaq.</p>
+<div style="margin-top: auto; display: flex; flex-wrap: wrap; gap: 10px;">
+<a href="https://wa.me/994555903695" target="_blank" rel="noopener" class="btn" style="height: 48px; padding: 0 20px; background: #ffffff; color: #151228; font-size: 14px;">WhatsApp</a>
+<a href="https://instagram.com/destechcom" class="btn" style="height: 48px; padding: 0 20px; background: transparent; border: 1.5px solid rgba(255,255,255,0.6); color: #ffffff; font-size: 14px;">Instagram</a>
+</div>
+</div>
+<form style="flex: 1.2 1 420px; display: flex; flex-direction: column; gap: 18px; padding: clamp(24px,3vw,36px); border-radius: 28px; background: #ffffff; color: #151228; box-shadow: 0 24px 64px -24px rgba(0,0,0,0.5);">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px;">
+<div class="field"><label for="f-name">Ad və soyad</label><input id="f-name" type="text" autocomplete="name"></div>
+<div class="field"><label for="f-phone">Telefon</label><input id="f-phone" type="tel" placeholder="+994 __ ___ __ __" autocomplete="tel"></div>
+</div>
+<div class="field"><label for="f-email">Email <span style="font-weight: 500; color: #5a566e;">(istəyə bağlı)</span></label><input id="f-email" type="email" autocomplete="email"></div>
+<div class="field"><label for="f-program">Proqram</label><select id="f-program"><option>Proqram seç</option><option>Qrafik dizayn — 4 ay</option><option>Motion dizayn — 4 ay</option><option>UX/UI dizayn — 4 ay</option></select></div>
+<div class="field"><label for="f-msg">Mesaj <span style="font-weight: 500; color: #5a566e;">(istəyə bağlı)</span></label><textarea id="f-msg"></textarea></div>
+<button type="button" class="btn" style="justify-content: space-between; height: 56px; background: #e5358c; color: #ffffff;">Müraciəti göndər<span class="arw" style="background: #ffffff; color: #e5358c;"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></button>
+</form>
+</div>
+</section>
+
+<!-- FOOTER: giant wordmark -->
+<footer class="panel" style="background: #ebe8e1; color: #151228; padding: clamp(32px,4vw,56px) clamp(24px,4vw,56px) 0;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px;">
+<p style="margin: 0; max-width: 340px; font-size: 16px; line-height: 1.55; font-weight: 500;">Designer yetişdirən, designerləri birləşdirən dizayn akademiyası.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 56px;">
+<nav aria-label="Səhifə" style="display: flex; flex-direction: column; gap: 10px; font-size: 15px; font-weight: 600;">
+<span class="lbl" style="color: #5a566e;">(Səhifə)</span>
+<a href="#proqramlar" style="text-decoration: none;">Proqramlar</a>
+<a href="#community" style="text-decoration: none;">Community</a>
+<a href="#muraciet" style="text-decoration: none;">Müraciət</a>
+</nav>
+<div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px; font-weight: 600;">
+<span class="lbl" style="color: #5a566e;">(Əlaqə)</span>
+<a href="https://instagram.com/destechcom" style="text-decoration: none;">Instagram</a>
+<a href="https://wa.me/994555903695" target="_blank" rel="noopener" style="text-decoration: none;">WhatsApp</a>
+<a href="tel:+994555903695" style="text-decoration: none;">055 590 36 95</a>
+<span>Cəfərov Qardaşları 16, Bakı</span>
+</div>
+</div>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-top: 56px; font-size: 13px; font-weight: 600; color: #5a566e;"><span>(2026) © DesTech</span><span>Bakı, Azərbaycan</span></div>
+<div aria-hidden="true" style="font-family: Unbounded, sans-serif; font-size: clamp(72px,17.5vw,260px); line-height: 0.78; font-weight: 600; letter-spacing: -0.06em; color: #151228; margin-top: 16px; margin-bottom: -0.06em; white-space: nowrap;">DesTech</div>
+</footer>
+
+
+<!-- PROGRAM DETAIL (same page drawer) -->
+<sc-if value="{{hasP}}" hint-placeholder-val="{{ false }}">
+<div style="position: fixed; inset: 0; z-index: 100; display: flex; justify-content: flex-end;">
+<button type="button" onClick="{{closeP}}" aria-label="Pəncərəni bağla" style="position: absolute; inset: 0; border: 0; background: rgba(21,18,40,0.5); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); cursor: pointer;"></button>
+<div role="dialog" aria-modal="true" aria-label="{{p.title}}" style="position: relative; width: min(720px, 100%); height: 100%; overflow-y: auto; background: #f4f2ee; border-radius: 28px 0 0 28px; box-shadow: -24px 0 64px -24px rgba(21,18,40,0.45); display: flex; flex-direction: column;">
+<div style="position: relative; margin: 10px 10px 0; padding: clamp(24px,3vw,36px); border-radius: 24px; background: {{p.bg}}; color: {{p.fg}}; display: flex; flex-direction: column; gap: 18px; overflow: hidden;">
+<div aria-hidden="true" style="position: absolute; width: 220px; height: 220px; border-radius: 999px; right: -60px; top: -70px; background: {{p.orb}}; box-shadow: 0 30px 50px -20px rgba(0,0,0,0.35);"></div>
+<div style="position: relative; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;">
+<div style="display: flex; flex-wrap: wrap; gap: 6px;"><sc-for list="{{p.chips}}" as="c" hint-placeholder-count="3"><span class="pill" style="background: #ffffff; color: #151228;">{{c}}</span></sc-for></div>
+<button type="button" onClick="{{closeP}}" class="circ glass" aria-label="Bağla" style="color: #151228;"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<h2 style="position: relative; margin: 8px 0 0; font-size: clamp(36px,4.4vw,56px); line-height: 0.95; font-weight: 600; letter-spacing: -0.05em;">{{p.title}}</h2>
+<p style="position: relative; margin: 0; max-width: 520px; font-size: 17px; line-height: 1.5; font-weight: 500;">{{p.summary}}</p>
+<div class="glass" style="position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 14px; border-radius: 18px; color: #151228;">
+<div><div style="font-size: 12px; font-weight: 600; color: #5a566e;">Müddət</div><div style="font-size: 16px; font-weight: 700;">{{p.duration}}</div></div>
+<div><div style="font-size: 12px; font-weight: 600; color: #5a566e;">Format</div><div style="font-size: 16px; font-weight: 700;">Onlayn · Oflayn</div></div>
+<div><div style="font-size: 12px; font-weight: 600; color: #5a566e;">Ödəniş</div><div style="font-size: 16px; font-weight: 700;">250 ₼ / ay</div></div>
+</div>
+</div>
+<div style="padding: clamp(24px,3vw,36px); display: flex; flex-direction: column; gap: 40px;">
+
+<div style="display: flex; flex-direction: column; gap: 14px;">
+<p class="lbl" style="color: #5a566e;">(a) Kimin üçündür</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px;">
+<sc-for list="{{p.who}}" as="w" hint-placeholder-count="3"><div style="padding: 16px; border-radius: 18px; background: #ffffff; box-shadow: 0 1px 0 rgba(21,18,40,0.04), 0 8px 24px -16px rgba(21,18,40,0.2);"><div style="font-size: 15px; font-weight: 700;">{{w.t}}</div><div style="margin-top: 6px; font-size: 14px; line-height: 1.5; font-weight: 500; color: #5a566e;">{{w.d}}</div></div></sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 14px;">
+<p class="lbl" style="color: #5a566e;">(b) Kursun sonunda bacaracaqsan</p>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<sc-for list="{{p.outcomes}}" as="o" hint-placeholder-count="4"><div style="display: flex; gap: 12px; align-items: flex-start;"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 999px; background: #151228; color: #d6e04a; margin-top: 1px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"></path></svg></span><span style="font-size: 16px; line-height: 1.5; font-weight: 500;">{{o}}</span></div></sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;"><p class="lbl" style="color: #5a566e;">(c) Tədris planı</p><span style="font-size: 13px; font-weight: 600; color: #5a566e;">{{p.modCount}}</span></div>
+<sc-for list="{{p.modules}}" as="m" hint-placeholder-count="6"><div style="display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 12px; padding: 18px 0; border-top: 1px solid #d6d1c7;"><span style="font-family: Unbounded, sans-serif; font-size: 18px; font-weight: 600; color: {{p.accent}};">{{m.n}}</span><div><div style="font-size: 18px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02em;">{{m.t}}</div><div style="margin-top: 6px; font-size: 14px; line-height: 1.55; font-weight: 500; color: #5a566e;">{{m.d}}</div></div></div></sc-for>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 14px;">
+<p class="lbl" style="color: #5a566e;">(d) Alətlər</p>
+<div style="display: flex; flex-wrap: wrap; gap: 6px;"><sc-for list="{{p.tools}}" as="t" hint-placeholder-count="5"><span class="pill" style="height: 34px; background: #ffffff; color: #151228; box-shadow: 0 1px 0 rgba(21,18,40,0.04), 0 6px 16px -12px rgba(21,18,40,0.3);">{{t}}</span></sc-for></div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 14px;">
+<p class="lbl" style="color: #5a566e;">(e) Necə oxuyursan</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px;">
+<div style="padding: 16px; border-radius: 18px; background: #ffffff;"><div style="font-family: Unbounded, sans-serif; font-size: 22px; font-weight: 600;">2×2</div><div style="margin-top: 6px; font-size: 13px; line-height: 1.45; font-weight: 500; color: #5a566e;">Həftədə 2 canlı dərs, hər biri 2 saat</div></div>
+<div style="padding: 16px; border-radius: 18px; background: #ffffff;"><div style="font-family: Unbounded, sans-serif; font-size: 22px; font-weight: 600;">REC</div><div style="margin-top: 6px; font-size: 13px; line-height: 1.45; font-weight: 500; color: #5a566e;">Hər dərsin yazısı və PDF-i Classroom-da</div></div>
+<div style="padding: 16px; border-radius: 18px; background: #d6e04a;"><div style="font-family: Unbounded, sans-serif; font-size: 22px; font-weight: 600;">LAB</div><div style="margin-top: 6px; font-size: 13px; line-height: 1.45; font-weight: 500; color: #151228;">Həftəlik əlavə praktika saatı</div></div>
+<div style="padding: 16px; border-radius: 18px; background: #ffffff;"><div style="font-family: Unbounded, sans-serif; font-size: 22px; font-weight: 600;">1:1</div><div style="margin-top: 6px; font-size: 13px; line-height: 1.45; font-weight: 500; color: #5a566e;">Dərsdənkənar mentor dəstəyi</div></div>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 22px; border-radius: 22px; background: #151228; color: #ffffff;">
+<p class="lbl" style="color: #d6e04a;">(f) Final layihə və diplom</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; font-weight: 500; color: #ffffff;">{{p.final}}</p>
+</div>
+
+</div>
+<div style="position: sticky; bottom: 0; margin-top: auto; padding: 14px clamp(16px,3vw,28px); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; background: rgba(244,242,238,0.9); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-top: 1px solid #e4e0d8;">
+<div><div style="font-size: 12px; font-weight: 600; color: #5a566e;">Növbəti qrup</div><div style="font-family: Unbounded, sans-serif; font-size: 18px; font-weight: 600;">{{p.next}}</div></div>
+<a href="#muraciet" onClick="{{closeP}}" class="btn" style="height: 52px; padding: 0 8px 0 22px; background: #e5358c; color: #ffffff; font-weight: 700;">Bu proqrama müraciət et<span class="arw" style="background: #ffffff; color: #e5358c;"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":8000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var open = (this.state && this.state.open !== undefined) ? this.state.open : 0;
+    var self = this;
+    var vals = {};
+    for (var i = 0; i < 6; i++) {
+      (function (k) {
+        var on = open === k;
+        vals['o' + k] = on;
+        vals['i' + k] = on ? '−' : '+';
+        vals['b' + k] = on ? '#151228' : '#ffffff';
+        vals['c' + k] = on ? '#ffffff' : '#151228';
+        vals['t' + k] = function () { self.setState({ open: on ? -1 : k }); };
+      })(i);
+    }
+    var Q = [
+      { lead: 'Əvvəllər yalnız şablonla işləyirdim —', text: 'indi niyə bu şrifti, bu kompozisiyanı seçdiyimi müştəriyə əsaslandıra bilirəm. Kursdan sonra ilk frilans layihəmi aldım.', name: 'Aysel M.', meta: 'Qrafik dizayn məzunu', color: '#e5358c' },
+      { lead: 'LAB saatları ən çox kömək edən hissə oldu —', text: 'tapşırıq üzərində ilişib qalanda yerində kömək alırdım. Recording-lər sayəsində heç bir dərsi itirmədim.', name: 'Murad H.', meta: 'Motion dizayn məzunu', color: '#2448e0' },
+      { lead: 'Proqramı YouTube-dan da öyrənmək olar,', text: 'amma burada dizayn düşüncəsini öyrəndim. Portfolio-mu kurs müddətində hazırladım və müsahibədə məhz onu göstərdim.', name: 'Nərmin Ə.', meta: 'UX/UI dizayn məzunu', color: '#efea4d' }
+    ];
+    var ti = (this.state && this.state.ti !== undefined) ? this.state.ti : 0;
+    vals.q = Q[ti];
+    vals.dots = Q.map(function (x, j) { return { color: x.color, fg: x.color === '#efea4d' ? '#151228' : '#ffffff', ini: x.name.charAt(0), ml: j === 0 ? '0px' : '-12px', op: j === ti ? '1' : '0.4' }; });
+    vals.prev = function () { self.setState({ ti: (ti + Q.length - 1) % Q.length }); };
+    vals.next = function () { self.setState({ ti: (ti + 1) % Q.length }); };
+    var P = {
+      g: { title: 'Qrafik dizayn', bg: '#e5358c', fg: '#151228', orb: 'radial-gradient(circle at 32% 28%, #ffffff 0%, #fff27a 22%, #efea4d 55%, #b9b220 100%)', accent: '#e5358c', duration: '4 ay', next: '01 noyabr', chips: ['4 ay', 'Sıfırdan', 'Onlayn · Oflayn'], modCount: '8 modul',
+        summary: 'Vizual dilin əsaslarından brend identikasına qədər — proqramı yox, dizayn qərarı verməyi öyrənirsən. Hər modul real tapşırıqla bitir.',
+        who: [ { t: 'Sıfırdan başlayanlar', d: 'Dizayn təcrübəsi tələb olunmur — yalnız kompüter və maraq.' }, { t: 'Karyera dəyişənlər', d: 'Marketinq, memarlıq və ya başqa sahədən dizayna keçmək istəyənlər.' }, { t: 'SMM və marketoloqlar', d: 'Vizualları özü hazırlamaq və brief-i düzgün qurmaq istəyənlər.' } ],
+        outcomes: [ 'Kompozisiya, rəng və tipoqrafiya qərarlarını əsaslandırmaq', 'Grid sistemləri ilə səliqəli, oxunaqlı maketlər qurmaq', 'Loqo və tam vizual identika sistemi hazırlamaq', 'Sosial media üçün ardıcıl post seriyaları dizayn etmək', 'AI alətlərini araşdırma və ideya mərhələsində köməkçi kimi istifadə etmək', 'Case study formatında portfolio təqdim etmək' ],
+        modules: [
+          { n: '01', t: 'Vizual dilin əsasları', d: 'Nöqtə, xətt, forma, Gestalt prinsipləri; Illustrator-da vektor qrafika.' },
+          { n: '02', t: 'Rəng nəzəriyyəsi', d: 'Itten və Albers yanaşması, kontrast, palitra qurmaq və rəngin mənası.' },
+          { n: '03', t: 'Tipoqrafiya və iyerarxiya', d: 'Şrift seçimi və cütləşdirmə, Azərbaycan hərfləri ilə işləmək, oxunaqlılıq.' },
+          { n: '04', t: 'Kompozisiya və grid sistemləri', d: 'İsveçrə üslubu, modul grid, poster və nəşr maketləri.' },
+          { n: '05', t: 'Foto və manipulyasiya', d: 'Photoshop-da retuş, kollaj, işıq-kölgə; AI ilə şəkil redaktəsi.' },
+          { n: '06', t: 'Rəqəmsal dizayn: sosial media', d: 'Figma-da post seriyası, karusel və brend kit; platforma qaydaları.' },
+          { n: '07', t: 'Brendinq', d: 'Brend araşdırması, loqo, identika sistemi və brendbuk.' },
+          { n: '08', t: 'Portfolio və final layihə', d: 'İşlərin seçimi, case study yazmaq, Behance və təqdimat.' } ],
+        tools: ['Illustrator', 'Photoshop', 'InDesign', 'Figma', 'Adobe Firefly', 'ChatGPT / Claude'],
+        final: 'Kursun sonunda real brief əsasında brend identika layihəsi hazırlayır və müdafiə edirsən. Tapşırıqları və final layihəni uğurla təqdim edən tələbəyə DesTech diplomu verilir.' },
+      m: { title: 'Motion dizayn', bg: '#efea4d', fg: '#151228', orb: 'radial-gradient(circle at 32% 28%, #ffffff 0%, #7d94ff 20%, #2448e0 55%, #1631a6 100%)', accent: '#2448e0', duration: '4 ay', next: '[TARİX]', chips: ['4 ay', 'Dizaynerlər üçün', 'Onlayn · Oflayn'], modCount: '8 modul',
+        summary: 'Statik dizaynı hərəkətə gətir: zaman, ritm və keçidlərlə hekayə danışmağı öyrən. Qrafik dizayn biliyi olanlar üçün.',
+        who: [ { t: 'Qrafik dizaynerlər', d: 'İşlərinə hərəkət əlavə edib xidmətlərini genişləndirmək istəyənlər.' }, { t: 'SMM dizaynerləri', d: 'Reels, story və reklam üçün animasiyalı kontent hazırlayanlar.' }, { t: 'DesTech məzunları', d: 'Qrafik dizayn proqramından sonra növbəti addım atmaq istəyənlər.' } ],
+        outcomes: [ 'Animasiyanın 12 prinsipini öz işlərində tətbiq etmək', 'After Effects-də keyframe, easing və graph editor ilə sərbəst işləmək', 'Kinetik tipoqrafiya və loqo animasiyası hazırlamaq', 'Brend üçün hərəkət dili (motion guideline) qurmaq', 'Sosial media formatları üçün səslə sinxron video hazırlamaq', 'Showreel yığıb portfolioya əlavə etmək' ],
+        modules: [
+          { n: '01', t: 'Hərəkətin prinsipləri', d: 'Animasiyanın 12 prinsipi, zaman, ritm və easing məntiqi.' },
+          { n: '02', t: 'After Effects əsasları', d: 'Layer, keyframe, graph editor, kompozisiya qurmaq.' },
+          { n: '03', t: 'Forma animasiyası', d: 'Shape layer, mask, matte və trim path ilə işləmək.' },
+          { n: '04', t: 'Kinetik tipoqrafiya', d: 'Mətnin hərəkəti, ritm, oxunaqlılıq və səslə sinxron.' },
+          { n: '05', t: 'Loqo animasiyası və brend hərəkəti', d: 'Loqo reveal, brendin hərəkət dili və motion guideline.' },
+          { n: '06', t: 'Sosial media üçün motion', d: 'Reels, story və reklam formatları; Premiere Pro-da montaj.' },
+          { n: '07', t: 'AI və motion', d: 'AI ilə asset və video generasiyası, iş axınını sürətləndirmək.' },
+          { n: '08', t: 'Showreel və final layihə', d: 'İşlərin seçimi, showreel montajı və təqdimat.' } ],
+        tools: ['After Effects', 'Premiere Pro', 'Illustrator', 'Figma', 'AI video alətləri'],
+        final: 'Kursun sonunda bir brend üçün tam motion paketi (loqo animasiyası, sosial media videoları) hazırlayır və showreel yığırsan. Uğurla müdafiə edənə DesTech diplomu verilir.' },
+      u: { title: 'UX/UI dizayn', bg: '#44479a', fg: '#ffffff', orb: 'radial-gradient(circle at 32% 28%, #ffffff 0%, #eef59a 18%, #d6e04a 50%, #8a9418 100%)', accent: '#44479a', duration: '4 ay', next: '[TARİX]', chips: ['4 ay', 'Sıfırdan', 'Onlayn · Oflayn'], modCount: '8 modul',
+        summary: 'İstifadəçini anlamaqdan hazır interfeysə qədər rəqəmsal məhsul dizaynının bütün prosesi — AI alətləri iş axınına daxil edilməklə.',
+        who: [ { t: 'Sıfırdan başlayanlar', d: 'Rəsm bacarığı tələb olunmur — kurs dizayn düşüncəsi üzərindədir.' }, { t: 'Qrafik dizaynerlər', d: 'Rəqəmsal məhsul dizaynına keçmək istəyənlər.' }, { t: 'Məhsul komandaları', d: 'Dizayn tələblərini düzgün qurmaq istəyən menecer və sahibkarlar.' } ],
+        outcomes: [ 'Brief-i oxuyub istifadəçi araşdırması planlamaq və aparmaq', 'User flow, wireframe və informasiya arxitekturası qurmaq', 'Figma-da auto layout, komponent və variantlarla peşəkar işləmək', 'Veb və mobil tətbiq üçün tam UI dizayn hazırlamaq', 'Token və variable-larla dizayn sistemi qurmaq', 'Prototip yığıb istifadəçi testi aparmaq və developer-ə ötürmək' ],
+        modules: [
+          { n: '01', t: 'UX və dizayn düşüncəsi', d: 'Design thinking, problemi düzgün təyin etmək, brief-i oxumaq.' },
+          { n: '02', t: 'İstifadəçi araşdırması', d: 'Müsahibə, persona, araşdırma planı; AI ilə nəticələrin təhlili.' },
+          { n: '03', t: 'İnformasiya arxitekturası', d: 'User flow, sayt xəritəsi, wireframe.' },
+          { n: '04', t: 'Figma peşəkar səviyyədə', d: 'Auto layout, komponentlər, variantlar, iş faylının strukturu.' },
+          { n: '05', t: 'UI dizayn', d: 'İnterfeysdə tipoqrafiya, rəng, grid; veb və mobil ekranlar.' },
+          { n: '06', t: 'Dizayn sistemləri', d: 'Token, variable, komponent kitabxanası.' },
+          { n: '07', t: 'Prototip və test', d: 'İnteraktiv prototip, istifadəçi testi və iterasiya.' },
+          { n: '08', t: 'Handoff, portfolio və final layihə', d: 'Developer-ə ötürmə, case study və portfolio təqdimatı.' } ],
+        tools: ['Figma', 'FigJam', 'AI alətləri', 'Maze / usability test'],
+        final: 'Kursun sonunda real problem üzərində tam məhsul layihəsi — araşdırmadan prototipə qədər — hazırlayıb case study kimi təqdim edirsən. Uğurla müdafiə edənə DesTech diplomu verilir.' }
+    };
+    var pk = (this.state && this.state.pk) ? this.state.pk : null;
+    vals.hasP = !!pk;
+    vals.p = pk ? P[pk] : P.g;
+    vals.openG = function () { self.setState({ pk: 'g' }); };
+    vals.openM = function () { self.setState({ pk: 'm' }); };
+    vals.openU = function () { self.setState({ pk: 'u' }); };
+    vals.closeP = function () { self.setState({ pk: null }); };
+    return vals;
+  }
+}
+</script>
+</body>
+</html>
