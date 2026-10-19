@@ -129,11 +129,11 @@ Məzmunu komponentə yazma — hər şey `src/content/site.ts`-dən oxunur.
 - [ ] Motion və UX/UI proqramlarının başlama tarixi — `[TARİX]`
 - [ ] Növbəti tədbirin saatı və məkanı — `[Saat] · [Məkan]`
 - [ ] FAQ 06 — diplom şərtləri
-- [ ] Tələbə işləri: 5 placeholder plitə → real şəkillər və adlar
+- [ ] Tələbə işləri: 4 placeholder plitə → real şəkillər (`public/images/works/`)
 - [ ] Rəylər nümunədir — real rəylərlə əvəz et və "Nümunə mətn" nişanını sil
 - [ ] Müəllimlərin Behance/Instagram linkləri (hazırda `#`)
 - [ ] Şirkət loqoları — mətn əvəzinə SVG
-- [ ] Tələbə işləri filterinin teqləri (`tag`) — hazırda təxmini bölgüdür
+- [ ] Motion işləri — əlavə olunanda filter düymələri avtomatik görünəcək
 
 ## Bilinən güzəşt
 

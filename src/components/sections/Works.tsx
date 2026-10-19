@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { Container, Panel, SectionLabel } from "@/components/ui";
 import { works, type WorkTile } from "@/content/site";
@@ -13,7 +14,7 @@ import { cn } from "@/lib/cn";
  * gələndə rəngli/zolaqlı fonlar `next/image` ilə əvəz olunacaq.
  */
 
-const fillClass: Record<WorkTile["fill"], string> = {
+const fillClass: Record<NonNullable<WorkTile["fill"]>, string> = {
   yellow: "bg-yellow",
   pink: "bg-pink",
   cobalt: "bg-cobalt",
@@ -37,9 +38,12 @@ const spanClass: Record<number, string> = {
   7: "col-span-7 max-[900px]:col-span-12",
 };
 
-/** Plitə daxilindəki dekorativ formalar — referansdakı kimi. */
-function TileDecoration({ index }: { index: number }) {
-  if (index === 0) {
+/**
+ * Placeholder plitələrin dekorativ formaları.
+ * Real şəkil əlavə olunanda bunlar göstərilmir.
+ */
+function TileDecoration({ kind }: { kind: WorkTile["placeholder"] }) {
+  if (kind === "poster") {
     return (
       <>
         <div
@@ -60,7 +64,7 @@ function TileDecoration({ index }: { index: number }) {
     );
   }
 
-  if (index === 2) {
+  if (kind === "logo") {
     return (
       <>
         <div
@@ -75,7 +79,7 @@ function TileDecoration({ index }: { index: number }) {
     );
   }
 
-  if (index === 3) {
+  if (kind === "motion") {
     return (
       <div
         aria-hidden="true"
@@ -91,13 +95,21 @@ function TileDecoration({ index }: { index: number }) {
   return null;
 }
 
-type Filter = (typeof works.filters)[number];
+/**
+ * Filter düymələri plitələrdən törəyir: hansı teqlər varsa, o düymələr görünür.
+ * Tək teq varsa filter ümumiyyətlə göstərilmir — "Hamısı" və "Qrafik" eyni
+ * nəticəni versəydi, bu, heç nə etməyən kontrol olardı.
+ * Motion işləri əlavə olunan kimi filter özü peyda olur.
+ */
+const tagsInUse = [...new Set(works.tiles.map((tile) => tile.tag))];
+const filters = [works.allFilter, ...tagsInUse];
+const showFilters = tagsInUse.length > 1;
 
 export function Works() {
-  const [filter, setFilter] = useState<Filter>(works.filters[0]);
+  const [filter, setFilter] = useState<string>(works.allFilter);
 
   const visible = works.tiles.filter(
-    (tile) => filter === works.filters[0] || tile.tag === filter,
+    (tile) => filter === works.allFilter || tile.tag === filter,
   );
 
   return (
@@ -120,9 +132,10 @@ export function Works() {
         <div
           role="group"
           aria-label={works.filterLabel}
+          hidden={!showFilters}
           className="rounded-pill flex gap-0.5 bg-white/8 p-1"
         >
-          {works.filters.map((name) => {
+          {filters.map((name) => {
             const active = name === filter;
             return (
               <button
@@ -146,7 +159,6 @@ export function Works() {
 
       <div className="grid grid-cols-12 gap-web-mosaic-gap px-2">
         {visible.map((tile) => {
-          const index = works.tiles.indexOf(tile);
           return (
             <figure
               key={tile.caption}
@@ -155,11 +167,28 @@ export function Works() {
                 tile.size === "lg"
                   ? "h-[clamp(280px,30vw,440px)]"
                   : "h-[clamp(200px,20vw,280px)]",
-                fillClass[tile.fill],
+                // Fon yalnız şəkil olmayanda görünür
+                !tile.image && tile.fill && fillClass[tile.fill],
                 spanClass[tile.span],
               )}
             >
-              <TileDecoration index={index} />
+              {tile.image ? (
+                <Image
+                  src={tile.image}
+                  // Ad lövhəsi ilə eyni mətn: "İş adı — Tələbə adı"
+                  alt={tile.caption}
+                  fill
+                  sizes={
+                    tile.span >= 6
+                      ? "(max-width: 900px) 100vw, 60vw"
+                      : "(max-width: 900px) 50vw, 30vw"
+                  }
+                  className="object-cover"
+                  style={{ objectPosition: tile.imagePosition }}
+                />
+              ) : (
+                <TileDecoration kind={tile.placeholder} />
+              )}
               <figcaption
                 className={cn(
                   "rounded-pill absolute bottom-2.5 left-2.5 inline-flex h-[30px] items-center px-3 text-xs font-semibold",

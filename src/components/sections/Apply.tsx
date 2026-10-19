@@ -252,18 +252,27 @@ export function Apply() {
 
           <SubmitButton />
 
+          {/* Uğur və xəta vizual olaraq fərqlənməlidir: uğurda lime nöqtə +
+              ink mətn, xətada pink-deep. Əvvəl hər ikisi eyni rəngdə idi və
+              uğurlu göndəriş xəta kimi oxunurdu. */}
           <p
             ref={statusRef}
             tabIndex={-1}
             role="status"
             aria-live="polite"
             className={cn(
-              "m-0 text-sm font-semibold",
+              "m-0 flex items-start gap-2 text-sm font-semibold",
               state.status === "idle" && "sr-only",
-              state.status === "success" && "text-web-cta",
+              state.status === "success" && "text-ink",
               state.status === "error" && "text-web-cta",
             )}
           >
+            {state.status === "success" && (
+              <span
+                aria-hidden="true"
+                className="bg-lime rounded-pill mt-1.5 inline-block size-2 shrink-0"
+              />
+            )}
             {state.message ?? ""}
           </p>
         </form>

@@ -129,22 +129,38 @@ export interface StatCard {
   highlight?: boolean;
 }
 
-/** Mozaika plitəsi — şəkillər gələnə qədər placeholder. */
+/**
+ * Mozaika plitəsi.
+ *
+ * Real iş əlavə etmək üçün sadəcə `image` yaz — şəkil avtomatik placeholder-i
+ * əvəz edir. `fill` və `placeholder` yalnız şəkil olmayanda işlənir.
+ */
 export interface WorkTile {
-  caption: string;
   /**
-   * Filter teqi. Referansda filter düymələri işləmirdi; ölü kontrol
-   * qoymamaq üçün teq əlavə edilib. Real işlər gələndə yenidən bax.
+   * İşin adı, məs. "Bakı Dizayn Həftəsi posteri".
+   * Həm plitənin üstündə görünür, həm də şəklin alt mətni kimi işlənir,
+   * ona görə təsviredici olsun.
    */
+  caption: string;
+  /** Filter teqi — "Qrafik" və ya "Motion" düyməsinə görə süzülür. */
   tag: "Qrafik" | "Motion";
-  /** 12 sütunlu grid-də plitənin eni. */
-  span: number;
-  /** Plitənin hündürlük qrupu. */
+  /** 12 sütunlu grid-də plitənin eni: 3, 5, 6 və ya 7. */
+  span: 3 | 5 | 6 | 7;
+  /** `lg` ≈ 440px hündürlük, `sm` ≈ 280px. */
   size: "lg" | "sm";
-  /** Rəngli plitə, yoxsa zolaqlı placeholder. */
-  fill: ColorToken | "stripe";
-  /** Açıq plitədə açıq şüşə, tünd plitədə tünd şüşə ad lövhəsi. */
+  /** Açıq şəkildə açıq şüşə, tünd şəkildə tünd şüşə ad lövhəsi. */
   captionGlass: "light" | "dark";
+
+  /** Şəklin yolu, məs. "/images/works/poster-aysel.jpg". */
+  image?: string;
+  /** Şəklin kadrlanması, məs. "center 30%". Default: mərkəz. */
+  imagePosition?: string;
+
+  /* ── Yalnız şəkil YOXDURSA ── */
+  /** Placeholder plitənin fonu. */
+  fill?: ColorToken | "stripe";
+  /** Placeholder üzərindəki dekorativ forma. */
+  placeholder?: "poster" | "logo" | "motion";
 }
 
 /* ────────────────────────────── Ümumi ────────────────────────────── */
@@ -627,56 +643,94 @@ export const about = {
 
 /* ────────────────────────────── Tələbə işləri (mozaika) ────────────────────────────── */
 
+/**
+ * Mozaika plitələri — "Tələbə işləri" bölməsi.
+ *
+ * Plitələr soldan sağa düzülür. Bir cərgə 12 sütundur, yəni `span`-ların
+ * cəmi 12 olanda cərgə dolur:   7 + 5 = 12   ·   3 + 3 + 6 = 12
+ *
+ * ── REAL İŞ ƏLAVƏ ETMƏK ──
+ *   1) şəkli `public/images/works/` qovluğuna at
+ *   2) plitəyə `image: "/images/works/fayl-adi.jpg"` yaz
+ *   3) `caption`-a işin adını yaz
+ *   4) `fill` və `placeholder` sətirlərini sil — artıq lazım deyil
+ *
+ * Ayrıca dəyişən kimi yazılıb ki, tipi `WorkTile[]` qalsın: `as const`
+ * obyektinin içində olsaydı, `image` kimi opsional sahələr tipdən itərdi.
+ */
+export const workTiles: WorkTile[] = [
+  // ── 1-ci cərgə: 7 + 5 = 12 ──
+  {
+    caption: "Capital 828 — loqo və brend identika",
+    tag: "Qrafik",
+    span: 7,
+    size: "lg",
+    captionGlass: "dark",
+    image: "/images/works/DesTech_bento_images/span7-lg_1626x864/capital-828.jpg",
+  },
+  {
+    caption: "Kampus.az — veb sayt dizaynı",
+    tag: "Qrafik",
+    span: 5,
+    size: "lg",
+    captionGlass: "light",
+    image: "/images/works/DesTech_bento_images/span5-lg_1200x897/kampus-az.jpg",
+  },
+
+  // ── 2-ci cərgə: 6 + 6 = 12 ──
+  {
+    caption: "Redesign Luxury — veb sayt dizaynı",
+    tag: "Qrafik",
+    span: 6,
+    size: "sm",
+    captionGlass: "dark",
+    image: "/images/works/DesTech_bento_images/span6-sm_1400x579/redesign-luxury.jpg",
+  },
+  {
+    caption: "Televago — brend identika",
+    tag: "Qrafik",
+    span: 6,
+    size: "sm",
+    captionGlass: "light",
+    image: "/images/works/DesTech_bento_images/span6-sm_1400x579/televago.jpg",
+  },
+
+  // ── 3-cü cərgə: 3 + 3 + 6 = 12 ──
+  {
+    caption: "Zenith Wellness — qablaşdırma dizaynı",
+    tag: "Qrafik",
+    span: 3,
+    size: "sm",
+    captionGlass: "light",
+    image: "/images/works/DesTech_bento_images/span3-sm_800x670/zenith-wellness.jpg",
+  },
+  {
+    caption: "Lazy Basket — qablaşdırma dizaynı",
+    tag: "Qrafik",
+    span: 3,
+    size: "sm",
+    captionGlass: "light",
+    image: "/images/works/DesTech_bento_images/span3-sm_800x670/lazy-basket.jpg",
+  },
+  {
+    caption: "UAFA — veb sayt dizaynı",
+    tag: "Qrafik",
+    span: 6,
+    size: "sm",
+    captionGlass: "light",
+    image: "/images/works/DesTech_bento_images/span6-sm_1400x579/uafa.jpg",
+  },
+];
+
 export const works = {
   id: "isler",
   label: "(03) Tələbə işləri",
   headingSoft: "Kursda",
   heading: "hazırlanan işlər",
   filterLabel: "Proqrama görə süz",
-  filters: ["Hamısı", "Qrafik", "Motion"],
-  /** TODO: real tələbə işləri gələnə qədər placeholder plitələr. */
-  tiles: [
-    {
-      caption: "[Poster seriyası] — [Tələbə adı]",
-      tag: "Qrafik",
-      span: 7,
-      size: "lg",
-      fill: "yellow",
-      captionGlass: "light",
-    },
-    {
-      caption: "[Brend identika] — [Tələbə adı]",
-      tag: "Qrafik",
-      span: 5,
-      size: "lg",
-      fill: "stripe",
-      captionGlass: "light",
-    },
-    {
-      caption: "[Loqo] — [Tələbə]",
-      tag: "Qrafik",
-      span: 3,
-      size: "sm",
-      fill: "pink",
-      captionGlass: "dark",
-    },
-    {
-      caption: "[Motion kadr] — [Tələbə]",
-      tag: "Motion",
-      span: 3,
-      size: "sm",
-      fill: "cobalt",
-      captionGlass: "dark",
-    },
-    {
-      caption: "[Qablaşdırma] — [Tələbə adı]",
-      tag: "Qrafik",
-      span: 6,
-      size: "sm",
-      fill: "stripe",
-      captionGlass: "light",
-    },
-  ] satisfies WorkTile[],
+  /** Filter düymələrinin birincisi — qalanları plitələrin teqlərindən qurulur. */
+  allFilter: "Hamısı",
+  tiles: workTiles,
 } as const;
 
 /* ────────────────────────────── Müəllimlər ────────────────────────────── */
