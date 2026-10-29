@@ -25,17 +25,22 @@ export const siteUrl = normalizeSiteUrl(
 
 /**
  * AI Creator qeydiyyat formu brauzerdən birbaşa Supabase-ə yazır, ona görə
- * bu iki dəyər publikdir (`NEXT_PUBLIC_`). Təhlükəli deyil: anon açar
+ * bu iki dəyər publikdir (`NEXT_PUBLIC_`). Təhlükəli deyil: publishable açar
  * `supabase/migrations/0002_ai_creator_registrations.sql`-dəki RLS ilə
  * YALNIZ `insert` edə bilir — heç nə oxuya, silə və ya dəyişə bilmir.
  *
- * Service role açarı (`SUPABASE_SERVICE_ROLE_KEY`) ilə qarışdırma —
- * o RLS-i bypass edir və heç vaxt `NEXT_PUBLIC_` olmamalıdır.
+ * DİQQƏT: bu layihə Supabase-in YENİ açar sistemindədir (`sb_publishable_…`).
+ * Köhnə `anon` JWT açarları (`eyJhbGci…`) söndürülüb və 401 qaytarır —
+ * dashboard-da "Legacy anon, service_role API keys" tabında görünsələr belə.
+ *
+ * Secret açarı (`sb_secret_…`) ilə qarışdırma — o RLS-i bypass edir və
+ * heç vaxt `NEXT_PUBLIC_` olmamalıdır.
  *
  * İkisindən biri boş olsa forma göndərilmir, istifadəçiyə xəta göstərilir.
  */
 export const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
-export const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
+export const supabasePublishableKey =
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? "";
 
 /** GA4 ölçmə ID-si (G-XXXXXXX). Boş olsa skript yüklənmir. */
 export const gaId = process.env.NEXT_PUBLIC_GA_ID ?? "";

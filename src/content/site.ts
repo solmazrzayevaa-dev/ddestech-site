@@ -477,6 +477,9 @@ export const aiCreator = {
     email: "Düzgün e-poçt ünvanı yaz.",
     consent: "Davam etmək üçün razılıq ver.",
     notConnected: "Forma hələ qoşulmayıb (Supabase məlumatları boşdur).",
+    /** HTTP 401 — konfiqurasiya xətası, istifadəçinin günahı deyil. */
+    badKey:
+      "Forma müvəqqəti işləmir (açar qəbul edilmədi). +994 55 590 36 95 nömrəsinə yaz, qeydiyyatını əl ilə aparaq.",
     duplicateFin:
       "Bu FİN kodla artıq qeydiyyat var. Sualın varsa, +994 55 590 36 95 nömrəsinə yaz.",
     closed: "Qeydiyyat müddəti bitib və ya forma müvəqqəti əlçatan deyil.",

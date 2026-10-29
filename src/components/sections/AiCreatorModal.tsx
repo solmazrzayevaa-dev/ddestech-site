@@ -6,7 +6,7 @@ import { aiCreator, contact } from "@/content/site";
 import type { AiCreatorPriceState } from "@/lib/aiCreatorPrice";
 import { trackLead } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
-import { supabaseAnonKey, supabaseUrl } from "@/lib/env";
+import { supabasePublishableKey, supabaseUrl } from "@/lib/env";
 import { Motto, PriceRow, Spark, StatusPill } from "./AiCreatorParts";
 
 /**
@@ -149,7 +149,7 @@ export function AiCreatorModal({ tab, price, onClose }: Props) {
       return;
     }
 
-    if (!supabaseUrl || !supabaseAnonKey) {
+    if (!supabaseUrl || !supabasePublishableKey) {
       setFormError(aiCreator.errors.notConnected);
       return;
     }
@@ -167,8 +167,8 @@ export function AiCreatorModal({ tab, price, onClose }: Props) {
       const response = await fetch(`${supabaseUrl}/rest/v1/${TABLE}`, {
         method: "POST",
         headers: {
-          apikey: supabaseAnonKey,
-          Authorization: `Bearer ${supabaseAnonKey}`,
+          apikey: supabasePublishableKey,
+          Authorization: `Bearer ${supabasePublishableKey}`,
           "Content-Type": "application/json",
           Prefer: "return=minimal",
         },
@@ -178,8 +178,11 @@ export function AiCreatorModal({ tab, price, onClose }: Props) {
       if (!response.ok) {
         const E = aiCreator.errors;
         if (response.status === 409) throw new Error(E.duplicateFin);
-        if (response.status === 401 || response.status === 403)
-          throw new Error(E.closed);
+        // 401 və 403 fərqli səbəblərdir və onları eyni mesajla göstərmək
+        // nasazlığı tapmağı çətinləşdirir: 401 = açar qəbul edilmir
+        // (məs. köhnə legacy açar), 403 = açar düzgündür, RLS imkan vermir.
+        if (response.status === 401) throw new Error(E.badKey);
+        if (response.status === 403) throw new Error(E.closed);
         throw new Error(E.generic);
       }
 
