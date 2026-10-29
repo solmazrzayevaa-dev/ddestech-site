@@ -4,13 +4,15 @@ DesTech Academy (Bakı) üçün tək səhifəlik marketing saytı. Məqsəd: pro
 
 ## Əhatə (MVP1)
 - YALNIZ bir səhifə: `/`. Başqa route, blog, proqram səhifəsi YOXDUR (2-ci faza).
-- Bölmələr (ardıcıllıqla, anchor-larla): Hero `#top` → Bəyanat + loqolar → Proqramlar `#proqramlar` → Necə oxuyursan `#haqqimizda` → Tələbə işləri `#isler` → Müəllimlər `#muellimler` → Rəylər `#reyler` → Community `#community` → FAQ `#faq` → Müraciət `#muraciet` → Footer.
+- Bölmələr (ardıcıllıqla, anchor-larla): Hero `#top` → Bəyanat + loqolar → AI Creator banneri `#ai-creator` → Proqramlar `#proqramlar` → Necə oxuyursan `#haqqimizda` → Tələbə işləri `#isler` → Müəllimlər `#muellimler` → Rəylər `#reyler` → Community `#community` → FAQ `#faq` → Müraciət `#muraciet` → Footer.
 - Proqram kartında "Ətraflı" → eyni səhifədə sağdan açılan panel (drawer). URL dəyişmir.
+- AI Creator banner-ində "Ətraflı və qeydiyyat" → eyni səhifədə modal (native `<dialog>`, iki tab: proqram + qeydiyyat). URL dəyişmir, amma `#ai-creator` və `#ai-creator-qeydiyyat` hash-ləri ilə birbaşa açıla bilir.
 
 ## Stack
 - Next.js (App Router) + TypeScript + Tailwind CSS
 - Statik səhifə; məzmun `src/content/site.ts` faylındadır (CMS yoxdur)
-- Müraciət formu → Server Action → Supabase `website_leads` cədvəli + Telegram bildirişi
+- Müraciət formu → Server Action → Supabase `website_leads` cədvəli (həm sayt, həm platform layihəsinə yazılır)
+- AI Creator qeydiyyatı → brauzerdən birbaşa Supabase `ai_creator_registrations` cədvəlinə (anon açar + RLS, yalnız `insert`)
 - Deploy: Vercel
 
 ## Dizayn mənbəyi
