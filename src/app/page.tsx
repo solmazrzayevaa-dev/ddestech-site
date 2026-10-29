@@ -1,6 +1,7 @@
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { About } from "@/components/sections/About";
+import { AiCreator } from "@/components/sections/AiCreator";
 import { Apply } from "@/components/sections/Apply";
 import { Community } from "@/components/sections/Community";
 import { Faq } from "@/components/sections/Faq";
@@ -10,12 +11,15 @@ import { Statement } from "@/components/sections/Statement";
 import { Teachers } from "@/components/sections/Teachers";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { Works } from "@/components/sections/Works";
+import { getAiCreatorPriceState } from "@/lib/aiCreatorPrice";
 
 /**
  * Tək səhifə (MVP1) — bütün bölmələr.
  * Çərçivəli kanvas: panellər ekran kənarından 12px (mobil 8px), arada da 12px.
  */
-export default function Home() {
+export default async function Home() {
+  const aiCreatorPrice = await getAiCreatorPriceState();
+
   return (
     <div className="p-web-frame-m sm:p-web-frame gap-web-frame flex min-h-screen flex-col">
       {/* Klaviatura ilə naviqasiya: Tab-a basanda ilk fokuslanan element */}
@@ -31,6 +35,7 @@ export default function Home() {
       <main id="main" className="gap-web-frame flex flex-col">
         <Hero />
         <Statement />
+        <AiCreator price={aiCreatorPrice} />
         <Programs />
         <About />
         <Works />

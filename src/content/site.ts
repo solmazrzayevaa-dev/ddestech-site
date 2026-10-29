@@ -245,6 +245,269 @@ export const statement = {
   ],
 } as const;
 
+/* ────────────────────────────── AI Creator banneri ────────────────────────────── */
+
+/**
+ * AI Creator — yeni proqram. Hero-dan sonra, proqramlar bölməsindən əvvəl
+ * banner + modal (ətraflı məlumat və qeydiyyat).
+ * Mənbə: `ai-creator-banner.html`. Mətnlər dəyişdirilməyib.
+ *
+ * Qiymət və status tarixə görə hesablanır — bax `src/lib/aiCreatorPrice.ts`.
+ * Tarixləri dəyişəndə `supabase/migrations/0002_ai_creator_registrations.sql`
+ * faylındakı `early_bird` / `price_azn` / policy tarixlərini də yenilə,
+ * əks halda brauzerdəki qiymət bazadakından fərqlənər.
+ */
+export const aiCreator = {
+  id: "ai-creator",
+  /** Modal URL dəyişdirmir, amma bu hash-lərlə birbaşa açıla bilir. */
+  hashProgram: "#ai-creator",
+  hashRegister: "#ai-creator-qeydiyyat",
+
+  statusOpen: "Qeydiyyat açıqdır · 29 Oktyabr, 12:00",
+  statusOpenModal: "Qeydiyyat açıqdır · son tarix 20 Noyabr",
+  statusClosed: "Qeydiyyat bağlanıb",
+  chip: "Yeni proqram",
+  title: "AI Creator",
+  mottoSoft: "Tək nəfərlik",
+  motto: "böyük komanda.",
+  meta: [
+    "16 dərs · həftədə 2 dərs + LAB",
+    "Online / Offline",
+    "Son qeydiyyat: 20 Noyabr",
+  ],
+  earlyBirdShort: "Early bird · ilk 5 gün",
+  openCta: "Ətraflı və qeydiyyat",
+
+  /**
+   * Banner-dəki orbit: mərkəzdə "Sən", ətrafında 8 rol.
+   * `x` / `y` piksellə mərkəzdən sapmadır, `rotate` dərəcədir —
+   * referansdakı `nth-child` transform-larının eynisi.
+   */
+  youLabel: "Sən",
+  youValue: "= 8 rol",
+  orbitLabel: "Kursda öyrənəcəyin 8 rol",
+  roles: [
+    { label: "Araşdırmaçı", x: 0, y: -165, rotate: -3 },
+    { label: "Fotoqraf", x: 124, y: -117, rotate: 4 },
+    { label: "Tipoqraf", x: 172, y: 0, rotate: -4 },
+    { label: "Brend dizayner", x: 124, y: 117, rotate: 3 },
+    { label: "Video operator", x: 0, y: 167, rotate: -2 },
+    { label: "Montajçı", x: -124, y: 117, rotate: -5 },
+    { label: "Veb developer", x: -168, y: 0, rotate: 3 },
+    { label: "Əməliyyat meneceri", x: -110, y: -117, rotate: -4 },
+  ],
+
+  tabs: {
+    label: "Bölmələr",
+    program: "Proqram haqqında",
+    register: "Qeydiyyat",
+  },
+  close: "Bağla",
+  gotoRegister: "Qeydiyyata keç",
+
+  intro: {
+    leadSoft: "Bir alət öyrətmirik —",
+    lead: "istənilən AI ilə işləməyin metodunu öyrədirik.",
+    text: "Araşdırmadan reklam çarxına, pitch deck-dən landing page-ə qədər bütöv komandanın işini tək görməyi öyrən. Photoshop, Illustrator, Figma və ya After Effects bilmək lazım deyil.",
+  },
+  /** `numeric: true` → Unbounded şrifti (yalnız rəqəm və tarix). */
+  facts: [
+    { value: "2 ay", description: "8 həftə · 16 dərs", numeric: true },
+    {
+      value: "8 LAB",
+      description: "Hər həftə “AI vs Art Director” crit-i",
+      numeric: true,
+    },
+    {
+      value: "Online / Offline",
+      description: "Bakı, Cəfərov Qardaşları 16",
+      numeric: false,
+    },
+    { value: "20.11", description: "Son qeydiyyat tarixi", numeric: true },
+  ],
+
+  audienceLabel: "(01) Kimlər üçündür",
+  audienceHeading:
+    "Komandası olmayan, amma komanda qədər iş görməli olanlar üçün.",
+  audience: [
+    {
+      title: "Sahibkarlar",
+      description: "Brendinin vizualını və reklamını özün hazırla.",
+    },
+    {
+      title: "Freelancer-lər",
+      description: "Xidmətlərinin sayını artır, sifarişi sürətlə təhvil ver.",
+    },
+    {
+      title: "Marketoloqlar",
+      description: "Kampaniyanı ideyadan çarxa qədər tək qur.",
+    },
+    {
+      title: "SMM mütəxəssisləri",
+      description: "Post, carousel və reels-i keyfiyyəti itirmədən hazırla.",
+    },
+    {
+      title: "Content creator-lar",
+      description: "Öz kontent istehsalını sistemə çevir.",
+    },
+  ],
+
+  weeksLabel: "(02) Nə öyrənəcəksən",
+  weeksHeading: "8 həftə — 8 rol.",
+  weeksHeadingSoft: "Hər həftə komandanın bir üzvünü özündə yaradırsan.",
+  weeks: [
+    {
+      number: "01",
+      role: "Araşdırmaçı",
+      title: "Görmək və araşdırmaq",
+      description:
+        "NotebookLM, brief yazmaq, yaxşı vizualı pisdən ayırmaq: iyerarxiya, Gestalt, kontrast",
+    },
+    {
+      number: "02",
+      role: "Fotoqraf",
+      title: "Text-to-image və image-to-image",
+      description:
+        "Kompozisiya, kadr dili, işıq, promptun anatomiyası, referansla işləmək və şəkli redaktə etmək",
+    },
+    {
+      number: "03",
+      role: "Tipoqraf",
+      title: "Tipoqrafiyanın əsasları: mesajı düzgün ötürmək",
+      description:
+        "Şrift seçimi və cütləşdirmə, oxunaqlıq, iyerarxiya, ritm, ə, ş, ğ xətalarının həlli",
+    },
+    {
+      number: "04",
+      role: "Brend dizayner",
+      title: "Rəng və brend tutarlılığı",
+      description:
+        "Itten və Albers kontrastları, brend palitrası, mini brand kit",
+    },
+    {
+      number: "05",
+      role: "Video operator",
+      title: "Image-to-video",
+      description:
+        "Ssenari, storyboard, kamera hərəkəti, kliplər arasında tutarlılıq",
+    },
+    {
+      number: "06",
+      role: "Montajçı",
+      title: "Motion video",
+      description:
+        "Timing, ritm, kinetik tipografiya, CapCut-da 15 və 30 saniyəlik reklam çarxı",
+    },
+    {
+      number: "07",
+      role: "Təqdimatçı və veb developer",
+      title: "Pitch deck və landing page",
+      description: "Presentation AI, vibe coding ilə canlı landing page",
+    },
+    {
+      number: "08",
+      role: "Əməliyyat meneceri",
+      title: "Avtomatlaşdırma və final",
+      description:
+        "Şəxsi AI assistent, Make / Zapier ssenariləri, solo biznes əsasları, açıq crit gecəsi",
+    },
+  ],
+
+  outcomeLabel: "(03) Kursun sonunda",
+  outcomeHeading: "8 həftədən sonra sən —",
+  outcomeHeadingAccent: "tək nəfərlik böyük komanda.",
+  outcomeText:
+    "Hər həftəki LAB-da AI-ın verdiyi variantlardan birini seçir və onu dizayn prinsipi ilə əsaslandırırsan. Prompt yazan yox, AI-ı idarə edən olursan.",
+  checks: [
+    "8 fərqli sahədən işlə dolu portfolio",
+    "Post seriyası, reklam çarxı və landing page-i birləşdirən final kampaniya",
+    "Öz şəxsi AI assistentin və işləyən 1 avtomatlaşdırma",
+  ],
+  /** Son bənd iki sətirdir: ikinci sətir lime rəngdə vurğulanır. */
+  checkMethod: {
+    text: "İstənilən yeni AI alətinə tətbiq edə biləcəyin metod:",
+    accent: "məqsəd → referans → istehsal → crit → təkmilləşdirmə → sistem",
+  },
+
+  datesLabel: "(04) Tarixlər və qiymət",
+  dates: [
+    {
+      value: "29.10",
+      title: "Qeydiyyat açılır",
+      description: "Saat 12:00-da",
+      highlight: false,
+    },
+    {
+      value: "02.11",
+      title: "Early bird bitir",
+      description: "Bu tarixədək 80 ₼ / ay",
+      highlight: true,
+    },
+    {
+      value: "20.11",
+      title: "Son qeydiyyat",
+      description: "Adi qiymət 120 ₼ / ay",
+      highlight: false,
+    },
+  ],
+
+  form: {
+    heading: "Qeydiyyat",
+    text: "Formu doldur, komandamız səninlə əlaqə saxlayıb növbəti addımları desin.",
+    nameLabel: "Ad və soyad",
+    namePlaceholder: "Məs: Aysel Məmmədova",
+    phoneLabel: "Əlaqə nömrəsi",
+    phonePrefix: "+994",
+    phonePlaceholder: "50 123 45 67",
+    finLabel: "FİN kod",
+    finPlaceholder: "Məs: 5ABC12D",
+    finHelp: "Şəxsiyyət vəsiqəsindəki 7 simvollu kod",
+    emailLabel: "E-poçt",
+    emailPlaceholder: "ad@mail.com",
+    consent:
+      "Məlumatlarımın yalnız qeydiyyat məqsədilə emal olunmasına razıyam.",
+    submitLabel: "Qeydiyyatdan keç",
+    submittingLabel: "Göndərilir…",
+    note: "Early bird qiyməti 2 Noyabr 23:59-a qədər qeydiyyatdan keçənlərə şamil olunur.",
+  },
+  errors: {
+    name: "Ad və soyadını tam yaz.",
+    phone: "Nömrəni 9 rəqəmlə yaz: 50 123 45 67.",
+    fin: "FİN kod 7 simvoldur: hərf və rəqəm.",
+    email: "Düzgün e-poçt ünvanı yaz.",
+    consent: "Davam etmək üçün razılıq ver.",
+    notConnected: "Forma hələ qoşulmayıb (Supabase məlumatları boşdur).",
+    /** HTTP 401 — konfiqurasiya xətası, istifadəçinin günahı deyil. */
+    badKey:
+      "Forma müvəqqəti işləmir (açar qəbul edilmədi). +994 55 590 36 95 nömrəsinə yaz, qeydiyyatını əl ilə aparaq.",
+    duplicateFin:
+      "Bu FİN kodla artıq qeydiyyat var. Sualın varsa, +994 55 590 36 95 nömrəsinə yaz.",
+    closed: "Qeydiyyat müddəti bitib və ya forma müvəqqəti əlçatan deyil.",
+    generic: "Göndərmək alınmadı. Bir az sonra yenidən yoxla.",
+    genericWithPhone:
+      "Göndərmək alınmadı. Bir az sonra yenidən yoxla və ya +994 55 590 36 95 nömrəsinə yaz.",
+  },
+  summary: {
+    label: "(Seçimin)",
+    title: "AI Creator",
+    subtitle: "2 ay · 16 dərs + 8 LAB · Online / Offline",
+    monthlyRow: "Aylıq ödəniş",
+    durationRow: "Müddət",
+    durationValue: "2 ay",
+    paymentRow: "Ödəniş",
+    paymentValue: "Hər ay ayrıca",
+    earlyBirdInfo: "Early bird: 2 Noyabr-a qədər",
+    deadlineInfo: "Son qeydiyyat: 20 Noyabr",
+    questionLabel: "Sualın var?",
+  },
+  success: {
+    heading: "Qeydiyyatın qəbul olundu",
+    /** `{name}` və `{phone}` göndərilən məlumatla əvəz olunur. */
+    text: "Təşəkkürlər, {name}! Komandamız {phone} nömrəsi ilə əlaqə saxlayıb növbəti addımları deyəcək.",
+    priceLabel: "Qeydə alınan qiymət:",
+  },
+} as const;
+
 /* ────────────────────────────── Proqramlar ────────────────────────────── */
 
 export const programsSection = {
