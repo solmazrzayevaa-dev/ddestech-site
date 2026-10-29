@@ -6,13 +6,36 @@
 /**
  * Saytın kanonik ünvanı. Vercel-də `NEXT_PUBLIC_SITE_URL` təyin et;
  * təyin olunmasa preview deploy-un öz domenindən istifadə olunur.
+ *
+ * Protokol unudulsa (`www.destechedu.co` kimi) `new URL()` xəta verir və
+ * BÜTÜN build sınır. Ona görə `https://` yoxdursa özümüz əlavə edirik.
  */
-export const siteUrl = (
+function normalizeSiteUrl(raw: string): string {
+  const trimmed = raw.trim().replace(/\/$/, "");
+  if (!trimmed) return "http://localhost:3000";
+  return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+}
+
+export const siteUrl = normalizeSiteUrl(
   process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "http://localhost:3000")
-).replace(/\/$/, "");
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "http://localhost:3000"),
+);
+
+/**
+ * AI Creator qeydiyyat formu brauzerdən birbaşa Supabase-ə yazır, ona görə
+ * bu iki dəyər publikdir (`NEXT_PUBLIC_`). Təhlükəli deyil: anon açar
+ * `supabase/migrations/0002_ai_creator_registrations.sql`-dəki RLS ilə
+ * YALNIZ `insert` edə bilir — heç nə oxuya, silə və ya dəyişə bilmir.
+ *
+ * Service role açarı (`SUPABASE_SERVICE_ROLE_KEY`) ilə qarışdırma —
+ * o RLS-i bypass edir və heç vaxt `NEXT_PUBLIC_` olmamalıdır.
+ *
+ * İkisindən biri boş olsa forma göndərilmir, istifadəçiyə xəta göstərilir.
+ */
+export const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+export const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
 
 /** GA4 ölçmə ID-si (G-XXXXXXX). Boş olsa skript yüklənmir. */
 export const gaId = process.env.NEXT_PUBLIC_GA_ID ?? "";

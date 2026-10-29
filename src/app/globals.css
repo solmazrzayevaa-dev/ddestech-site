@@ -29,6 +29,10 @@
   --color-indigo: #44479a;
   --color-cobalt: #2448e0;
   --color-cobalt-deep: #1631a6;
+  /* AI Creator banner-i üçün: radial qradiyentin işıqlı mərkəzi və
+     açıq kobalt fon (həftə rolu nişanları). */
+  --color-cobalt-glow: #4a6cf0;
+  --color-cobalt-tint: #e8ecfd;
   --color-ink: #151228;
   --color-ink-muted: #5a566e;
   --color-paper: #ffffff;
@@ -52,6 +56,10 @@
   --color-glass-light: rgba(255, 255, 255, 0.62);
   --color-glass-dark: rgba(21, 18, 40, 0.48);
   --color-glass-stroke: rgba(255, 255, 255, 0.45);
+
+  /* Forma xətası — qırmızı yalnız xəta mətni və sərhədi üçün */
+  --color-web-error: #b3261e;
+  --color-web-error-bg: #fdecea;
 
   /* Fokus halqası */
   --color-focus-ring: var(--color-ink);
