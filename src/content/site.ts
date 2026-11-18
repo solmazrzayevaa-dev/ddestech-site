@@ -252,10 +252,7 @@ export const statement = {
  * banner + modal (ətraflı məlumat və qeydiyyat).
  * Mənbə: `ai-creator-banner.html`. Mətnlər dəyişdirilməyib.
  *
- * Qiymət və status tarixə görə hesablanır — bax `src/lib/aiCreatorPrice.ts`.
- * Tarixləri dəyişəndə `supabase/migrations/0002_ai_creator_registrations.sql`
- * faylındakı `early_bird` / `price_azn` / policy tarixlərini də yenilə,
- * əks halda brauzerdəki qiymət bazadakından fərqlənər.
+ * Qiymət sabitdir (120 ₼/ay) — bax `src/lib/aiCreatorPrice.ts`. Tarix yoxdur.
  */
 export const aiCreator = {
   id: "ai-creator",
@@ -263,8 +260,7 @@ export const aiCreator = {
   hashProgram: "#ai-creator",
   hashRegister: "#ai-creator-qeydiyyat",
 
-  statusOpen: "Qeydiyyat açıqdır · 29 Oktyabr, 12:00",
-  statusOpenModal: "Qeydiyyat açıqdır · son tarix 20 Noyabr",
+  statusOpen: "Qeydiyyat açıqdır",
   statusClosed: "Qeydiyyat bağlanıb",
   chip: "Yeni proqram",
   title: "AI Creator",
@@ -273,9 +269,7 @@ export const aiCreator = {
   meta: [
     "16 dərs · həftədə 2 dərs + LAB",
     "Online / Offline",
-    "Son qeydiyyat: 20 Noyabr",
   ],
-  earlyBirdShort: "Early bird · ilk 5 gün",
   openCta: "Ətraflı və qeydiyyat",
 
   /**
@@ -429,27 +423,6 @@ export const aiCreator = {
     accent: "məqsəd → referans → istehsal → crit → təkmilləşdirmə → sistem",
   },
 
-  datesLabel: "(04) Tarixlər və qiymət",
-  dates: [
-    {
-      value: "29.10",
-      title: "Qeydiyyat açılır",
-      description: "Saat 12:00-da",
-      highlight: false,
-    },
-    {
-      value: "02.11",
-      title: "Early bird bitir",
-      description: "Bu tarixədək 80 ₼ / ay",
-      highlight: true,
-    },
-    {
-      value: "20.11",
-      title: "Son qeydiyyat",
-      description: "Adi qiymət 120 ₼ / ay",
-      highlight: false,
-    },
-  ],
 
   form: {
     heading: "Qeydiyyat",
@@ -468,7 +441,6 @@ export const aiCreator = {
       "Məlumatlarımın yalnız qeydiyyat məqsədilə emal olunmasına razıyam.",
     submitLabel: "Qeydiyyatdan keç",
     submittingLabel: "Göndərilir…",
-    note: "Early bird qiyməti 2 Noyabr 23:59-a qədər qeydiyyatdan keçənlərə şamil olunur.",
   },
   errors: {
     name: "Ad və soyadını tam yaz.",
@@ -484,6 +456,13 @@ export const aiCreator = {
       "Bu FİN kodla artıq qeydiyyat var. Sualın varsa, +994 55 590 36 95 nömrəsinə yaz.",
     closed: "Qeydiyyat müddəti bitib və ya forma müvəqqəti əlçatan deyil.",
     generic: "Göndərmək alınmadı. Bir az sonra yenidən yoxla.",
+    /**
+     * Şəbəkə xətası: sorğu serverə ümumiyyətlə çatmadı (brauzer `Load failed`
+     * və ya `Failed to fetch` verir). İstifadəçiyə brauzerin xam ingilis
+     * mesajını göstərmirik — nə baş verdiyini anlamır və nömrəni itirir.
+     */
+    network:
+      "Serverə qoşulmaq alınmadı. İnterneti yoxla və yenidən cəhd et, ya da +994 55 590 36 95 nömrəsinə yaz.",
     genericWithPhone:
       "Göndərmək alınmadı. Bir az sonra yenidən yoxla və ya +994 55 590 36 95 nömrəsinə yaz.",
   },
@@ -496,8 +475,6 @@ export const aiCreator = {
     durationValue: "2 ay",
     paymentRow: "Ödəniş",
     paymentValue: "Hər ay ayrıca",
-    earlyBirdInfo: "Early bird: 2 Noyabr-a qədər",
-    deadlineInfo: "Son qeydiyyat: 20 Noyabr",
     questionLabel: "Sualın var?",
   },
   success: {
@@ -1200,4 +1177,30 @@ export const footer = {
   copyright: "(2026) © DesTech",
   city: contact.city,
   wordmark: "DesTech",
+} as const;
+
+/**
+ * "Ətraflı" paneli (dizayn kətanı `Details`): 8 modul, kimlər üçündür,
+ * yapışqan footer. Modal proqram tabında bunları göstərir.
+ */
+export const aiCreatorDetails = {
+  introLead: "0-dan öyrədirik.",
+  introText:
+    "Kod, dizayn və ya AI təcrübəsi lazım deyil. Claude və AI alətləri ilə işinə lazım olan şəkli, videonu, səsi, posteri, saytı və avtomatlaşdırmanı özün yaratmağı öyrənirsən.",
+  audienceLabel: "Kimlər üçündür",
+  audienceText:
+    "Marketoloqlar, biznes analitiklər, sahibkarlar, müəllimlər, HR mütəxəssisləri, mühasiblər, dizaynerlər — işini AI ilə sürətləndirmək istəyən hər kəs. Claude artıq hər peşədə lazım olan yeni bacarıqdır.",
+  programLabel: "Proqram",
+  modules: [
+    { number: "01", role: "Başlanğıc", title: "AI ilə 0-dan tanışlıq", description: "Claude ilə işləmək, düzgün tapşırıq (prompt) yazmaq, NotebookLM ilə araşdırma və brief hazırlamaq" },
+    { number: "02", role: "Fotoqraf", title: "Şəkil yaratmaq", description: "Text-to-image və image-to-image, referansla işləmək, kadr və işıq seçimi, şəkli redaktə etmək" },
+    { number: "03", role: "Poster dizayneri", title: "Poster və sosial media vizualları", description: "Yaratdığın vizualdan afişa, banner və karusel yığmaq, brend rənglərini qorumaq" },
+    { number: "04", role: "Video operator", title: "Video yaratmaq", description: "Image-to-video, ssenari və storyboard, kamera hərəkəti, kliplər arasında tutarlılıq" },
+    { number: "05", role: "Səs rejissoru", title: "Səsləndirmə", description: "AI səs və dublaj, videoya səs, musiqi və effekt əlavə etmək" },
+    { number: "06", role: "Montajçı", title: "AI ilə montaj", description: "Kəsim, ritm, subtitr, kinetik tipoqrafiya, 15 və 30 saniyəlik reklam çarxı" },
+    { number: "07", role: "Developer", title: "Öz app-ın və landing-in", description: "Claude ilə kod bilmədən landing səhifəsi və sadə app qurmaq, onu internetə çıxarmaq" },
+    { number: "08", role: "Avtomatlaşdırıcı", title: "Claude ilə avtomatlaşdırma", description: "Təkrarlanan işləri Claude-a həvalə etmək: hesabat, yazışma, sənəd və məlumat emalı" },
+  ],
+  footerNote: "Claude abunəliyi bizdən hədiyyə",
+  footerCta: "Qeydiyyata keç",
 } as const;

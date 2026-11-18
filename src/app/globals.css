@@ -67,6 +67,7 @@
   /* ── Şrift ailələri ──────────────────────────────────────────────────── */
   --font-sans: var(--font-plus-jakarta), "Segoe UI", system-ui, sans-serif;
   --font-display: var(--font-unbounded), "Arial Black", sans-serif;
+  --font-accent: var(--font-playfair), Georgia, serif;
 
   /* ── Veb tipoqrafiyası (type → "Web — sayt tipoqrafiyası") ───────────── */
   --text-web-display: 104px; /* desktop hero, səhifədə 1 dəfə */
@@ -242,4 +243,11 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+
+/* AI Creator banneri — üzən peşə pilləri */
+@keyframes destech-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
 }

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans, Unbounded } from "next/font/google";
+import { Plus_Jakarta_Sans, Playfair_Display, Unbounded } from "next/font/google";
 import { Analytics } from "@/components/layout/Analytics";
 import { contact, hero, site } from "@/content/site";
 import { siteUrl } from "@/lib/env";
@@ -9,6 +9,15 @@ import "./globals.css";
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
   subsets: ["latin", "latin-ext"],
+  display: "swap",
+});
+
+/* AI Creator banneri: italic vurğu sözü (yalnız 700 italic) */
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  style: ["italic"],
+  weight: ["700"],
   display: "swap",
 });
 
@@ -85,7 +94,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang={site.locale}
-      className={`${plusJakarta.variable} ${unbounded.variable} h-full`}
+      className={`${plusJakarta.variable} ${unbounded.variable} ${playfair.variable} h-full`}
     >
       {/* suppressHydrationWarning: brauzer genişlənmələri (parol menecerləri və s.)
           <body>-yə öz atributlarını əlavə edir və React bunu uyğunsuzluq sayır.

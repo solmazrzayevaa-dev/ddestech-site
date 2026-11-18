@@ -1,5 +1,4 @@
 import { aiCreator } from "@/content/site";
-import type { AiCreatorPriceState } from "@/lib/aiCreatorPrice";
 import { cn } from "@/lib/cn";
 
 /**
@@ -24,7 +23,7 @@ export function Spark({ className }: { className?: string }) {
   );
 }
 
-/** "● Qeydiyyat açıqdır · 29 Oktyabr, 12:00" */
+/** "● Qeydiyyat açıqdır" */
 export function StatusPill({ children }: { children: string }) {
   return (
     <span className="rounded-pill inline-flex items-center gap-2 bg-white/15 px-3.5 py-2 text-sm font-semibold">
@@ -62,7 +61,7 @@ export function Motto({ className }: { className?: string }) {
 }
 
 type PriceProps = {
-  state: AiCreatorPriceState;
+  price: number;
   /** Qiymət rəqəminin ölçüsü — banner 48px, footer 30px, xülasə 36px. */
   size: "lg" | "md" | "sm";
   /** Tünd fon (banner) və ya ağ fon (modal) üçün rəng dəsti. */
@@ -81,8 +80,8 @@ const suffixSizes = {
   sm: "text-[15px]",
 } as const;
 
-/** "80 ₼ /ay 120 ₼" — köhnə qiymət yalnız early bird vaxtı görünür. */
-export function PriceRow({ state, size, tone }: PriceProps) {
+/** "120 ₼ /ay" */
+export function PriceRow({ price, size, tone }: PriceProps) {
   const dark = tone === "on-dark";
 
   return (
@@ -93,7 +92,7 @@ export function PriceRow({ state, size, tone }: PriceProps) {
           priceSizes[size],
         )}
       >
-        {state.price} ₼
+        {price} ₼
       </strong>
       <small
         className={cn(
@@ -104,17 +103,6 @@ export function PriceRow({ state, size, tone }: PriceProps) {
       >
         /ay
       </small>
-      {state.early && (
-        <s
-          className={cn(
-            "font-display font-semibold decoration-2",
-            size === "lg" ? "text-xl" : "text-[17px]",
-            dark ? "text-white/60" : "text-web-text-soft",
-          )}
-        >
-          {state.oldPrice} ₼
-        </s>
-      )}
     </div>
   );
 }

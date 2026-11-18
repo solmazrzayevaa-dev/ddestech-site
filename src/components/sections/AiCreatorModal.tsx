@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Check, Close } from "@/components/ui/icons";
-import { aiCreator, contact } from "@/content/site";
-import type { AiCreatorPriceState } from "@/lib/aiCreatorPrice";
+import { aiCreator, aiCreatorDetails, contact } from "@/content/site";
+import { AI_CREATOR_PRICE_AZN } from "@/lib/aiCreatorPrice";
 import { trackLead } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 import { supabasePublishableKey, supabaseUrl } from "@/lib/env";
@@ -20,12 +20,18 @@ import { Motto, PriceRow, Spark, StatusPill } from "./AiCreatorParts";
 
 const TABLE = "ai_creator_registrations";
 
+/**
+ * İstifadəçiyə göstərməyə hazır, Azərbaycan dilində mesajı olan xəta.
+ * Yalnız bunun mesajı ekrana çıxır; qalan hər şey (şəbəkə qırılması,
+ * brauzerin `Load failed` TypeError-u) ümumi şəbəkə mesajına çevrilir.
+ */
+class FormError extends Error {}
+
 type Field = "name" | "phone" | "fin" | "email" | "consent";
 type Errors = Partial<Record<Field, string>>;
 
 type Props = {
   tab: "program" | "register" | null;
-  price: AiCreatorPriceState;
   onClose: () => void;
 };
 
@@ -37,7 +43,7 @@ const emptyForm = {
   consent: false,
 };
 
-export function AiCreatorModal({ tab, price, onClose }: Props) {
+export function AiCreatorModal({ tab, onClose }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const successRef = useRef<HTMLHeadingElement>(null);
 
@@ -177,22 +183,24 @@ export function AiCreatorModal({ tab, price, onClose }: Props) {
 
       if (!response.ok) {
         const E = aiCreator.errors;
-        if (response.status === 409) throw new Error(E.duplicateFin);
+        if (response.status === 409) throw new FormError(E.duplicateFin);
         // 401 və 403 fərqli səbəblərdir və onları eyni mesajla göstərmək
         // nasazlığı tapmağı çətinləşdirir: 401 = açar qəbul edilmir
         // (məs. köhnə legacy açar), 403 = açar düzgündür, RLS imkan vermir.
-        if (response.status === 401) throw new Error(E.badKey);
-        if (response.status === 403) throw new Error(E.closed);
-        throw new Error(E.generic);
+        if (response.status === 401) throw new FormError(E.badKey);
+        if (response.status === 403) throw new FormError(E.closed);
+        throw new FormError(E.generic);
       }
 
       setDone({ name: payload.full_name, phone: payload.phone });
       trackLead(aiCreator.title);
     } catch (error) {
+      // `fetch` şəbəkə səviyyəsində sınanda `TypeError: Load failed` (Safari)
+      // və ya `Failed to fetch` (Chrome) atır. Əvvəl bu mesaj olduğu kimi
+      // ekrana çıxırdı — istifadəçi nə baş verdiyini bilmirdi. İndi yalnız
+      // özümüzün yazdığımız mesajlar göstərilir.
       setFormError(
-        error instanceof Error
-          ? error.message
-          : aiCreator.errors.genericWithPhone,
+        error instanceof FormError ? error.message : aiCreator.errors.network,
       );
     } finally {
       setSubmitting(false);
@@ -218,9 +226,7 @@ export function AiCreatorModal({ tab, price, onClose }: Props) {
           <div>
             <div className="flex flex-wrap items-center gap-2.5">
               <StatusPill>
-                {price.open
-                  ? aiCreator.statusOpenModal
-                  : aiCreator.statusClosed}
+                {aiCreator.statusOpen}
               </StatusPill>
             </div>
             <h2
@@ -269,102 +275,56 @@ export function AiCreatorModal({ tab, price, onClose }: Props) {
 
       {/* ── Məzmun ── */}
       <div className="max-[859px]:px-5 min-h-0 flex-1 overflow-y-auto px-10 pt-8 pb-10">
-        {/* Proqram haqqında */}
+        {/* Proqram haqqında — "Details" paneli */}
         <div
           role="tabpanel"
           id="aiCreatorPanel-program"
           aria-labelledby="aiCreatorTab-program"
           hidden={active !== "program"}
-          className="flex flex-col gap-11"
+          className="flex flex-col gap-10"
         >
-          <div className="max-[859px]:grid-cols-1 grid grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-start gap-8">
-            <div>
-              <p className="max-[859px]:text-[22px] m-0 text-[26px] leading-[1.25] font-medium tracking-[-0.03em]">
-                <span className="text-web-text-soft">
-                  {aiCreator.intro.leadSoft}
-                </span>{" "}
-                {aiCreator.intro.lead}
-              </p>
-              <p className="text-web-text-muted mt-3.5 mb-0 text-base leading-[1.6]">
-                {aiCreator.intro.text}
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-2.5">
-              {aiCreator.facts.map((fact) => (
-                <div
-                  key={fact.value}
-                  className="bg-cloud rounded-[20px] p-[18px]"
-                >
-                  <b
-                    className={cn(
-                      "block font-bold",
-                      fact.numeric
-                        ? "font-display text-[28px]"
-                        : "text-xl leading-[1.4] tracking-[-0.02em]",
-                    )}
-                  >
-                    {fact.value}
-                  </b>
-                  <span className="text-web-text-muted mt-1.5 block text-sm">
-                    {fact.description}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* (01) Kimlər üçündür */}
           <div>
-            <div className="text-web-text-muted text-[13px] font-semibold">
-              {aiCreator.audienceLabel}
-            </div>
-            <h3 className="mt-2 mb-4 text-[28px] leading-[1.15] font-semibold tracking-[-0.04em]">
-              {aiCreator.audienceHeading}
-            </h3>
-            <div className="max-[859px]:grid-cols-2 grid grid-cols-5 gap-2.5">
-              {aiCreator.audience.map((item) => (
-                <div
-                  key={item.title}
-                  className="border-web-border rounded-mosaic border p-4"
-                >
-                  <b className="text-base tracking-[-0.02em]">{item.title}</b>
-                  <p className="text-web-text-muted mt-1.5 mb-0 text-sm leading-[1.45]">
-                    {item.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* (02) Nə öyrənəcəksən */}
-          <div>
-            <div className="text-web-text-muted text-[13px] font-semibold">
-              {aiCreator.weeksLabel}
-            </div>
-            <h3 className="mt-2 mb-4 text-[28px] leading-[1.15] font-semibold tracking-[-0.04em]">
-              {aiCreator.weeksHeading}{" "}
+            <p className="m-0 text-[26px] leading-[1.25] font-medium tracking-[-0.03em] max-[859px]:text-[22px]">
+              <strong className="font-semibold">
+                {aiCreatorDetails.introLead}
+              </strong>{" "}
               <span className="text-web-text-soft">
-                {aiCreator.weeksHeadingSoft}
+                {aiCreatorDetails.introText}
               </span>
+            </p>
+          </div>
+
+          <div>
+            <h3 className="mt-0 mb-3 text-[24px] leading-[1.15] font-semibold tracking-[-0.03em]">
+              {aiCreatorDetails.audienceLabel}
+            </h3>
+            <p className="text-web-text-muted m-0 text-base leading-[1.6]">
+              {aiCreatorDetails.audienceText}
+            </p>
+          </div>
+
+          <div>
+            <h3 className="mt-0 mb-2 text-[24px] leading-[1.15] font-semibold tracking-[-0.03em]">
+              {aiCreatorDetails.programLabel}
             </h3>
             <ol className="border-web-border m-0 list-none border-b p-0">
-              {aiCreator.weeks.map((week) => (
+              {aiCreatorDetails.modules.map((module) => (
                 <li
-                  key={week.number}
-                  className="border-web-border max-[859px]:grid-cols-[40px_minmax(0,1fr)] grid grid-cols-[56px_230px_minmax(0,1fr)] items-center gap-4 border-t py-3.5"
+                  key={module.number}
+                  className="border-web-border max-[719px]:grid-cols-[44px_minmax(0,1fr)] grid grid-cols-[56px_200px_minmax(0,1fr)] items-baseline gap-4 border-t py-5"
                 >
                   <span className="font-display text-cobalt text-lg font-bold">
-                    {week.number}
+                    {module.number}
                   </span>
                   <span className="rounded-pill bg-cobalt-tint text-cobalt-deep justify-self-start px-[13px] py-[7px] text-sm font-bold">
-                    {week.role}
+                    {module.role}
                   </span>
-                  <div className="max-[859px]:col-start-2">
+                  <div className="max-[719px]:col-start-2">
                     <strong className="block text-base font-semibold">
-                      {week.title}
+                      {module.title}
                     </strong>
-                    <small className="text-web-text-muted mt-0.5 block text-sm">
-                      {week.description}
+                    <small className="text-web-text-muted mt-1 block text-sm leading-[1.5]">
+                      {module.description}
                     </small>
                   </div>
                 </li>
@@ -372,86 +332,21 @@ export function AiCreatorModal({ tab, price, onClose }: Props) {
             </ol>
           </div>
 
-          {/* (03) Kursun sonunda */}
-          <div className="bg-ink on-dark max-[859px]:grid-cols-1 grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] gap-8 rounded-[24px] p-8 text-white">
+          {/* Yapışqan footer: qiymət və qeydiyyata keçid */}
+          <div className="bg-cloud sticky bottom-0 flex flex-wrap items-center justify-between gap-4 rounded-[20px] p-5">
             <div>
-              <div className="text-[13px] font-semibold text-white/70">
-                {aiCreator.outcomeLabel}
-              </div>
-              <h3 className="mt-2 mb-5 text-[30px] leading-[1.15] font-semibold tracking-[-0.04em]">
-                {aiCreator.outcomeHeading}{" "}
-                <span className="text-lime">
-                  {aiCreator.outcomeHeadingAccent}
-                </span>
-              </h3>
-              <p className="m-0 text-sm leading-[1.55] text-white/80">
-                {aiCreator.outcomeText}
-              </p>
+              <PriceRow price={AI_CREATOR_PRICE_AZN} size="md" tone="on-light" />
+              <span className="text-web-text-muted mt-1 block text-sm">
+                {aiCreatorDetails.footerNote}
+              </span>
             </div>
-            <ul className="m-0 flex list-none flex-col gap-3.5 p-0">
-              {aiCreator.checks.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-3 text-base leading-[1.45]"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="bg-lime text-ink grid size-[26px] flex-none place-items-center rounded-full"
-                  >
-                    <Check size={14} />
-                  </span>
-                  {item}
-                </li>
-              ))}
-              <li className="flex items-start gap-3 text-base leading-[1.45]">
-                <span
-                  aria-hidden="true"
-                  className="bg-lime text-ink grid size-[26px] flex-none place-items-center rounded-full"
-                >
-                  <Check size={14} />
-                </span>
-                <span>
-                  {aiCreator.checkMethod.text}
-                  <br />
-                  <em className="text-lime font-semibold not-italic">
-                    {aiCreator.checkMethod.accent}
-                  </em>
-                </span>
-              </li>
-            </ul>
-          </div>
-
-          {/* (04) Tarixlər və qiymət */}
-          <div>
-            <div className="text-web-text-muted text-[13px] font-semibold">
-              {aiCreator.datesLabel}
-            </div>
-            <div className="max-[859px]:grid-cols-1 mt-3.5 grid grid-cols-3 gap-2.5">
-              {aiCreator.dates.map((date) => (
-                <div
-                  key={date.value}
-                  className={cn(
-                    "rounded-[20px] p-5",
-                    date.highlight ? "bg-lime" : "bg-cloud",
-                  )}
-                >
-                  <b className="font-display block text-[26px] font-bold">
-                    {date.value}
-                  </b>
-                  <strong className="mt-2 block text-[15px] font-semibold">
-                    {date.title}
-                  </strong>
-                  <span
-                    className={cn(
-                      "mt-0.5 block text-sm",
-                      date.highlight ? "text-ink" : "text-web-text-muted",
-                    )}
-                  >
-                    {date.description}
-                  </span>
-                </div>
-              ))}
-            </div>
+            <button
+              type="button"
+              onClick={() => setOverride("register")}
+              className="rounded-pill bg-pink inline-flex h-12 items-center gap-2.5 px-6 text-[16px] font-bold text-white transition-colors duration-500 hover:bg-[#9a1a5c] focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ink"
+            >
+              {aiCreatorDetails.footerCta}
+            </button>
           </div>
         </div>
 
@@ -483,7 +378,7 @@ export function AiCreatorModal({ tab, price, onClose }: Props) {
                   .replace("{phone}", done.phone)}
               </p>
               <p className="text-ink m-0 font-semibold">
-                {aiCreator.success.priceLabel} {price.price} ₼ / ay
+                {aiCreator.success.priceLabel} {AI_CREATOR_PRICE_AZN} ₼ / ay
               </p>
               <button
                 type="button"
@@ -632,9 +527,6 @@ export function AiCreatorModal({ tab, price, onClose }: Props) {
                 >
                   {submitting ? F.submittingLabel : F.submitLabel}
                 </button>
-                <p className="text-web-text-muted m-0 text-center text-[13px] leading-[1.5]">
-                  {F.note}
-                </p>
               </form>
 
               {/* Xülasə */}
@@ -650,20 +542,15 @@ export function AiCreatorModal({ tab, price, onClose }: Props) {
                 </div>
                 <hr className="border-web-border m-0 h-px border-0 bg-current opacity-20" />
                 <div>
-                  <div className="text-cobalt-deep text-[13px] font-bold">
-                    {price.earlyBirdLabel}
-                  </div>
-                  <PriceRow state={price} size="md" tone="on-light" />
+                  <PriceRow price={AI_CREATOR_PRICE_AZN} size="md" tone="on-light" />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <SummaryRow label={S.monthlyRow} value={`${price.price} ₼`} />
+                  <SummaryRow label={S.monthlyRow} value={`${AI_CREATOR_PRICE_AZN} ₼`} />
                   <SummaryRow label={S.durationRow} value={S.durationValue} />
                   <SummaryRow label={S.paymentRow} value={S.paymentValue} />
                 </div>
                 <hr className="border-web-border m-0 h-px border-0 bg-current opacity-20" />
                 <div className="text-web-text-muted flex flex-col gap-1.5">
-                  <span>{S.earlyBirdInfo}</span>
-                  <span>{S.deadlineInfo}</span>
                   <span>
                     {S.questionLabel}{" "}
                     <a
@@ -683,12 +570,7 @@ export function AiCreatorModal({ tab, price, onClose }: Props) {
       {/* ── Alt panel — yalnız "Proqram haqqında" tabında ── */}
       {active === "program" && (
         <footer className="border-web-border max-[859px]:px-5 max-[859px]:py-3 flex flex-none flex-wrap items-center justify-between gap-x-6 gap-y-4 border-t bg-white px-10 py-4">
-          <div>
-            <div className="text-cobalt-deep text-[13px] font-bold">
-              {price.earlyBirdLabel}
-            </div>
-            <PriceRow state={price} size="sm" tone="on-light" />
-          </div>
+          <PriceRow price={AI_CREATOR_PRICE_AZN} size="sm" tone="on-light" />
           <button
             type="button"
             onClick={() => setOverride("register")}
