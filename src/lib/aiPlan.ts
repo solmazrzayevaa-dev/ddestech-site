@@ -1,6 +1,5 @@
 /**
- * AI generator (`/ai-plan`) üçün ortaq məntiq: prompt, cavabın yoxlanması.
- * Mənbə: handoff `reference/api/generate.js` və prototipdəki `normalize()`.
+ * AI generator (`/ai-plan`) üçün ortaq tiplər və mətnin təmizlənməsi.
  * Server (route handler) və brauzer eyni tipi istifadə edir.
  */
 
@@ -36,20 +35,6 @@ export function cleanWork(value: unknown): string {
     .replace(/\s+/g, " ")
     .trim()
     .slice(0, WORK_MAX_LENGTH);
-}
-
-export function buildPrompt(work: string): string {
-  const modules = AI_MODULES.join("|");
-  return [
-    `Sən DesTech-in "AI Creator" kursunun köməkçisisən. Saytdakı istifadəçi hazırda nə işlə məşğul olduğunu yazıb: "${work}".`,
-    "Kurs 0-dan öyrədir (heç bir təcrübə tələb olunmur): Claude ilə işləmək və avtomatlaşdırma, şəkil yaratmaq, video yaratmaq, səsləndirmə, poster dizaynı, AI ilə montaj, öz app və landing səhifəsini qurmaq.",
-    "Bu işlə məşğul olan, AI təcrübəsi olmayan biri kursdan sonra Claude ilə gündəlik işində NƏYİ AVTOMATLAŞDIRA və nə yarada bilər? Onun yazdığı işə uyğun, konkret, real nümunələr ver. Rəqəm, faiz və saat uydurma, şişirtmə.",
-    "Yalnız JSON qaytar, başqa heç nə yazma:",
-    `{"valid":true,"title":"peşənin qısa adı, ilk hərf böyük (məs. Mühasib)","automations":[{"name":"maks 6 söz","how":"Claude bunu necə edir, 1 cümlə, maks 18 söz","module":"${modules}"}],"creates":[{"t":"maks 8 söz","module":"..."}],"result":"işin necə asanlaşacağı, 1 cümlə, maks 20 söz"}`,
-    `automations dəqiq 4 element, creates dəqiq 3 element. module yalnız bu siyahıdan: ${AI_MODULES.join(", ")}.`,
-    'Yazılan iş və ya peşə deyilsə, mənasızdırsa və ya uyğunsuzdursa yalnız {"valid":false} qaytar.',
-    'Azərbaycan dilində, "sən" müraciəti ilə, düzgün Azərbaycan hərfləri ilə yaz.',
-  ].join("\n");
 }
 
 function str(value: unknown, max: number): string {
