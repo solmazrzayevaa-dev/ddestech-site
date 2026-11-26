@@ -17,7 +17,8 @@ function normalizeSiteUrl(raw: string): string {
 }
 
 /**
- * Saytın əsas (kanonik) domeni. Canonical, OG, robots.txt, sitemap.xml,
+ * Saytın əsas (kanonik) domeni. Vercel-də əsas domen www-dur:
+ * destechedu.co → www.destechedu.co yönləndirilir, ona görə canonical da www. Canonical, OG, robots.txt, sitemap.xml,
  * llms.txt və JSON-LD hamısı bu ünvanı göstərir.
  *
  * Production-da env dəyişənindən ASILI DEYİL: əvvəllər Vercel-də
@@ -25,7 +26,7 @@ function normalizeSiteUrl(raw: string): string {
  * nəticədə Google-a "əsl sayt işləməyən domendədir" deyilirdi. Domen dəyişsə,
  * yalnız bu sabiti dəyiş.
  */
-export const PRODUCTION_SITE_URL = "https://destechedu.co";
+export const PRODUCTION_SITE_URL = "https://www.destechedu.co";
 
 export const siteUrl =
   process.env.VERCEL_ENV === "production"

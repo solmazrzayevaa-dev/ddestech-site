@@ -13,18 +13,18 @@
 
 ## Proqramlar
 
-- [Qrafik dizayn](https://destechedu.co/#proqramlar): 4 ay, sıfırdan, ayda 250 AZN. Kompozisiya, tipoqrafiya, rəng və konsepsiya — vizual düşüncənin təməli.
-- [Motion dizayn](https://destechedu.co/#proqramlar): 4 ay, ayda 250 AZN. Statik dizaynı hərəkətə gətirmək; qrafik dizaynla tanış olanlar üçün.
-- [UX/UI dizayn](https://destechedu.co/#proqramlar): 4 ay, sıfırdan, ayda 250 AZN. İstifadəçini anlamaqdan prototipə: tədqiqat, wireframe, interfeys dizaynı.
-- [AI Creator](https://destechedu.co/#ai-creator): 2 ay, 16 dərs + 8 LAB, ayda 120 AZN. Süni intellektlə şəkil, poster, video, səsləndirmə, montaj, landing səhifə və Claude ilə avtomatlaşdırma. Kod, dizayn və ya AI təcrübəsi tələb olunmur.
+- [Qrafik dizayn](https://www.destechedu.co/#proqramlar): 4 ay, sıfırdan, ayda 250 AZN. Kompozisiya, tipoqrafiya, rəng və konsepsiya — vizual düşüncənin təməli.
+- [Motion dizayn](https://www.destechedu.co/#proqramlar): 4 ay, ayda 250 AZN. Statik dizaynı hərəkətə gətirmək; qrafik dizaynla tanış olanlar üçün.
+- [UX/UI dizayn](https://www.destechedu.co/#proqramlar): 4 ay, sıfırdan, ayda 250 AZN. İstifadəçini anlamaqdan prototipə: tədqiqat, wireframe, interfeys dizaynı.
+- [AI Creator](https://www.destechedu.co/#ai-creator): 2 ay, 16 dərs + 8 LAB, ayda 120 AZN. Süni intellektlə şəkil, poster, video, səsləndirmə, montaj, landing səhifə və Claude ilə avtomatlaşdırma. Kod, dizayn və ya AI təcrübəsi tələb olunmur.
 
 ## Akademiya
 
-- [Müəllimlər](https://destechedu.co/#muellimler)
-- [Tələbə işləri](https://destechedu.co/#isler): brend identikası, veb sayt və qablaşdırma layihələri
-- [Tez-tez verilən suallar](https://destechedu.co/#faq)
-- [Müraciət](https://destechedu.co/#muraciet)
+- [Müəllimlər](https://www.destechedu.co/#muellimler)
+- [Tələbə işləri](https://www.destechedu.co/#isler): brend identikası, veb sayt və qablaşdırma layihələri
+- [Tez-tez verilən suallar](https://www.destechedu.co/#faq)
+- [Müraciət](https://www.destechedu.co/#muraciet)
 
 ## Optional
 
-- [Sitemap](https://destechedu.co/sitemap.xml)
+- [Sitemap](https://www.destechedu.co/sitemap.xml)
