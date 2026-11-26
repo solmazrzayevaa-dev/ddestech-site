@@ -1019,6 +1019,12 @@ export const teachers: Teacher[] = [
 export const testimonialsSection = {
   id: "reyler",
   label: "(05) Tələbə rəyləri",
+  /**
+   * Bölmə gizlidir: rəylər hələ nümunədir və uydurma adlarla göstərmək
+   * etibara zərər verir. Real rəylər əlavə olunanda `true` et və
+   * `sampleBadge`-i sil.
+   */
+  enabled: false,
   /** TODO: launch-dan əvvəl real rəylərlə əvəz et və bu nişanı sil. */
   sampleBadge: "Nümunə mətn",
   prevLabel: "Əvvəlki rəy",
@@ -1070,6 +1076,8 @@ export const community = {
     position: "60% 40%",
   },
   event: {
+    /** Tarix keçib və saat/məkan doldurulmayıb — yeni tədbir əlavə olunanda `true` et. */
+    show: false,
     badge: "Növbəti tədbir",
     date: "31 oktyabr",
     title: "AI dünyasında dizayner olmaq",
@@ -1119,14 +1127,13 @@ export const faq: FaqItem[] = [
     number: "05",
     question: "Ödəniş necədir?",
     answer:
-      "Bütün proqramlarda ödəniş aylıqdır — 250 ₼ / ay. Proqramların müddəti 4 aydır.",
+      "Ödəniş aylıqdır. Qrafik, motion və UX/UI dizayn proqramları 4 ay davam edir, ayda 250 ₼. AI Creator 2 aydır, ayda 120 ₼.",
   },
   {
     number: "06",
     question: "Kurs sonunda diplom verilirmi?",
-    /** TODO: diplom şərtləri dəqiqləşəndə köşəli mötərizəni əvəz et. */
     answer:
-      "Bəli, proqramı bitirən tələbəyə diplom verilir. [Diplom şərtlərini əlavə et: tapşırıqlar, final layihə.]",
+      "Bəli. Proqramı bitirən və final layihəsini uğurla təqdim edən tələbəyə DesTech diplomu verilir.",
   },
 ];
 

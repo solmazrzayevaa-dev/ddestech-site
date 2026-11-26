@@ -11,6 +11,7 @@ import { Statement } from "@/components/sections/Statement";
 import { Teachers } from "@/components/sections/Teachers";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { Works } from "@/components/sections/Works";
+import { testimonialsSection } from "@/content/site";
 
 /**
  * Tək səhifə (MVP1) — bütün bölmələr.
@@ -37,7 +38,7 @@ export default async function Home() {
         <About />
         <Works />
         <Teachers />
-        <Testimonials />
+        {testimonialsSection.enabled && <Testimonials />}
         <Community />
         <Faq />
         <Apply />

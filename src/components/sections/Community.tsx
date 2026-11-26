@@ -34,9 +34,12 @@ export function Community() {
         </p>
 
         <div className="mt-auto flex flex-wrap gap-2.5">
-          <Button href={community.joinCta.href} variant="dark" arrow>
-            {community.joinCta.label}
-          </Button>
+          {/* Community linki hələ placeholder-dirsə düymə göstərilmir. */}
+          {community.joinCta.href.startsWith("http") && (
+            <Button href={community.joinCta.href} variant="dark" arrow>
+              {community.joinCta.label}
+            </Button>
+          )}
           <Button href={community.instagramCta.href} variant="outline">
             {community.instagramCta.label}
           </Button>
@@ -81,33 +84,35 @@ export function Community() {
           </div>
         </GlassCard>
 
-        <GlassCard
-          as="article"
-          radius="xl-m"
-          className="absolute right-3.5 bottom-3.5 left-3.5 ml-auto flex max-w-[440px] flex-col gap-3 p-5"
-        >
-          <div className="flex items-center justify-between gap-3">
-            <Pill variant="ink" dot>
-              {community.event.badge}
-            </Pill>
-            <span className="font-display text-lg font-semibold">
-              {community.event.date}
-            </span>
-          </div>
+        {community.event.show && (
+          <GlassCard
+            as="article"
+            radius="xl-m"
+            className="absolute right-3.5 bottom-3.5 left-3.5 ml-auto flex max-w-[440px] flex-col gap-3 p-5"
+          >
+            <div className="flex items-center justify-between gap-3">
+              <Pill variant="ink" dot>
+                {community.event.badge}
+              </Pill>
+              <span className="font-display text-lg font-semibold">
+                {community.event.date}
+              </span>
+            </div>
 
-          <h3 className="m-0 text-[26px] leading-[1.08] font-semibold tracking-[-0.035em]">
-            {community.event.title}
-          </h3>
+            <h3 className="m-0 text-[26px] leading-[1.08] font-semibold tracking-[-0.035em]">
+              {community.event.title}
+            </h3>
 
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <span className="text-sm font-semibold">
-              {community.event.meta}
-            </span>
-            <Button href={community.event.cta.href} size="sm" arrow>
-              {community.event.cta.label}
-            </Button>
-          </div>
-        </GlassCard>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <span className="text-sm font-semibold">
+                {community.event.meta}
+              </span>
+              <Button href={community.event.cta.href} size="sm" arrow>
+                {community.event.cta.label}
+              </Button>
+            </div>
+          </GlassCard>
+        )}
       </Panel>
     </section>
   );

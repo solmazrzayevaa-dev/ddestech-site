@@ -116,7 +116,10 @@ export function Teachers() {
                   </p>
                 </div>
                 <div className="flex gap-1.5">
-                  {teacher.links.map((link) => (
+                  {teacher.links
+                    // "#" placeholder linkləri göstərilmir
+                    .filter((link) => link.href !== "#")
+                    .map((link) => (
                     <CircleButton
                       key={link.ariaLabel}
                       href={link.href}

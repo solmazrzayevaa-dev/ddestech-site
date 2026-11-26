@@ -1,0 +1,30 @@
+# DesTech — Dizayn akademiyası
+
+> DesTech Bakıda dizayn akademiyasıdır: qrafik dizayn, motion dizayn, UX/UI dizayn və AI Creator proqramları. Dərslər canlı keçir, həftədə 2 dəfə, hər biri 2 saat; tələbə onlayn və ya əyani (Cəfərov Qardaşları 16, Bakı) iştirakı özü seçir. Tədris dizayn düşüncəsinə (kompozisiya, tipoqrafiya, rəng, konsepsiya) əsaslanır, proqram öyrənmək bunun üzərində qurulur.
+
+Əsas faktlar:
+- Ünvan: Cəfərov Qardaşları 16, Bakı, Azərbaycan
+- Telefon / WhatsApp: +994 55 590 36 95
+- Instagram: https://instagram.com/destechcom
+- Format: canlı dərslər həftədə 2 dəfə × 2 saat, onlayn və ya əyani
+- Dəstək: dərs yazıları və PDF materiallar Google Classroom-da, həftəlik LAB saatı, dərsdənkənar 1:1 mentor görüşləri
+- Qurucu: Solmaz Rzayeva — qrafik və UX/UI dizayner, 10 il təcrübə
+- Motion dizayn müəllimi: Rəşad Əhməd — motion dizayner, 10 il təcrübə
+
+## Proqramlar
+
+- [Qrafik dizayn](https://destechedu.co/#proqramlar): 4 ay, sıfırdan, ayda 250 AZN. Kompozisiya, tipoqrafiya, rəng və konsepsiya — vizual düşüncənin təməli.
+- [Motion dizayn](https://destechedu.co/#proqramlar): 4 ay, ayda 250 AZN. Statik dizaynı hərəkətə gətirmək; qrafik dizaynla tanış olanlar üçün.
+- [UX/UI dizayn](https://destechedu.co/#proqramlar): 4 ay, sıfırdan, ayda 250 AZN. İstifadəçini anlamaqdan prototipə: tədqiqat, wireframe, interfeys dizaynı.
+- [AI Creator](https://destechedu.co/#ai-creator): 2 ay, 16 dərs + 8 LAB, ayda 120 AZN. Süni intellektlə şəkil, poster, video, səsləndirmə, montaj, landing səhifə və Claude ilə avtomatlaşdırma. Kod, dizayn və ya AI təcrübəsi tələb olunmur.
+
+## Akademiya
+
+- [Müəllimlər](https://destechedu.co/#muellimler)
+- [Tələbə işləri](https://destechedu.co/#isler): brend identikası, veb sayt və qablaşdırma layihələri
+- [Tez-tez verilən suallar](https://destechedu.co/#faq)
+- [Müraciət](https://destechedu.co/#muraciet)
+
+## Optional
+
+- [Sitemap](https://destechedu.co/sitemap.xml)

@@ -16,12 +16,26 @@ function normalizeSiteUrl(raw: string): string {
   return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
 }
 
-export const siteUrl = normalizeSiteUrl(
-  process.env.NEXT_PUBLIC_SITE_URL ||
-    (process.env.VERCEL_PROJECT_PRODUCTION_URL
-      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : "http://localhost:3000"),
-);
+/**
+ * Saytın əsas (kanonik) domeni. Canonical, OG, robots.txt, sitemap.xml,
+ * llms.txt və JSON-LD hamısı bu ünvanı göstərir.
+ *
+ * Production-da env dəyişənindən ASILI DEYİL: əvvəllər Vercel-də
+ * `NEXT_PUBLIC_SITE_URL=https://destech.az` qalmışdı, destech.az isə açılmır —
+ * nəticədə Google-a "əsl sayt işləməyən domendədir" deyilirdi. Domen dəyişsə,
+ * yalnız bu sabiti dəyiş.
+ */
+export const PRODUCTION_SITE_URL = "https://destechedu.co";
+
+export const siteUrl =
+  process.env.VERCEL_ENV === "production"
+    ? PRODUCTION_SITE_URL
+    : normalizeSiteUrl(
+        process.env.NEXT_PUBLIC_SITE_URL ||
+          (process.env.VERCEL_URL
+            ? `https://${process.env.VERCEL_URL}`
+            : "http://localhost:3000"),
+      );
 
 /**
  * AI Creator qeydiyyat formu brauzerdən birbaşa Supabase-ə yazır, ona görə

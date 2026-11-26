@@ -42,8 +42,11 @@ export function Hero() {
       <Container className="relative flex flex-wrap items-end justify-between gap-8 pt-35 pb-[clamp(28px,4vw,48px)]">
         <div className="flex max-w-[820px] flex-1 basis-[560px] flex-col gap-[22px]">
           <h1 className="text-paper m-0 text-[clamp(48px,7.2vw,108px)] leading-[0.92] font-semibold tracking-[-0.055em]">
-            {hero.titleLines.map((line) => (
+            {/* Sətirlər arasında real boşluq: `block` vizual olaraq ayırır,
+                amma axtarış sistemləri mətni "kimidüşünməyi" kimi birləşdirirdi. */}
+            {hero.titleLines.map((line, i) => (
               <span key={line} className="block">
+                {i > 0 && " "}
                 {line}
               </span>
             ))}
