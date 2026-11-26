@@ -1,10 +1,11 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { aiCreator } from "@/content/site";
 import { useHashTab, type AiCreatorTab } from "@/hooks/useHashTab";
 import { AI_CREATOR_PRICE_AZN } from "@/lib/aiCreatorPrice";
+import { AiCreatorDrawer } from "./AiCreatorDrawer";
 import { AiCreatorModal } from "./AiCreatorModal";
 import { PriceRow, StatusPill } from "./AiCreatorParts";
 
@@ -44,8 +45,24 @@ export function AiCreator() {
   const [hashUsed, setHashUsed] = useState(false);
   const [profession, setProfession] = useState("");
   const router = useRouter();
+  /** Kursorun banner daxilindəki nisbi mövqeyi (0–1) — işıq onu izləyir. */
+  const [pointer, setPointer] = useState({ x: 0.5, y: 0.6 });
+  const frame = useRef(0);
 
-  const tab = openTab ?? (hashUsed ? null : hashTab);
+  const onPointerMove = (event: React.MouseEvent<HTMLElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    if (frame.current) return;
+    frame.current = requestAnimationFrame(() => {
+      frame.current = 0;
+      setPointer({ x, y });
+    });
+  };
+
+  const activeTab = openTab ?? (hashUsed ? null : hashTab);
+  const drawerOpen = activeTab === "program";
+  const modalTab = activeTab === "register" ? "register" : null;
 
   const close = useCallback(() => {
     setOpenTab(null);
@@ -57,12 +74,19 @@ export function AiCreator() {
       <section
         id={aiCreator.id}
         aria-labelledby="aiCreatorTitle"
+        onMouseMove={onPointerMove}
         className="relative isolate overflow-hidden rounded-[24px] bg-[#1d1b20] px-5 pt-16 pb-14 text-white md:rounded-[36px] md:px-10 md:pt-20 md:pb-16"
       >
         {/* Qradiyent: tünddən çəhrayıya */}
         <div
           aria-hidden="true"
           className="absolute inset-0 -z-30 bg-[linear-gradient(180deg,#1d1b20_0%,#26192a_18%,#5a1a42_38%,#a3226b_60%,#c42878_80%,#b8226f_100%)]"
+        />
+        {/* Kursorun izlədiyi işıq (V5: cursor-glow) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -z-20 size-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(255,190,225,0.5),rgba(255,190,225,0))] transition-[left,top] duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+          style={{ left: `${pointer.x * 100}%`, top: `${pointer.y * 100}%` }}
         />
         {/* Mərkəzdə parlaq işıq */}
         <div
@@ -82,6 +106,21 @@ export function AiCreator() {
             />
           ))}
         </div>
+
+        {/* Neon naqillər — içində işıq impulsu gedir (V5: wires) */}
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 1440 900"
+          preserveAspectRatio="none"
+          className="pointer-events-none absolute inset-0 -z-10 hidden h-full w-full min-[901px]:block"
+        >
+          <path d="M-20 360 C 200 320 230 600 420 640 S 560 680 620 720" fill="none" stroke="#ff8fd0" strokeWidth="12" opacity="0.22" />
+          <path d="M1460 340 C 1240 310 1210 600 1020 640 S 880 680 820 720" fill="none" stroke="#ff8fd0" strokeWidth="12" opacity="0.22" />
+          <path d="M-20 360 C 200 320 230 600 420 640 S 560 680 620 720" fill="none" stroke="#ffb3dd" strokeWidth="3" />
+          <path d="M1460 340 C 1240 310 1210 600 1020 640 S 880 680 820 720" fill="none" stroke="#ffb3dd" strokeWidth="3" />
+          <path d="M-20 360 C 200 320 230 600 420 640 S 560 680 620 720" fill="none" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeDasharray="90 1700" style={{ animation: "destech-wire 3.4s cubic-bezier(.45,0,.55,1) infinite" }} />
+          <path d="M1460 340 C 1240 310 1210 600 1020 640 S 880 680 820 720" fill="none" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeDasharray="90 1700" style={{ animation: "destech-wire 3.4s cubic-bezier(.45,0,.55,1) 1.2s infinite" }} />
+        </svg>
 
         {/* Üzən peşə pilləri — yalnız geniş ekranda */}
         <div
@@ -113,6 +152,7 @@ export function AiCreator() {
 
           <h2
             id="aiCreatorTitle"
+            style={{ animation: "destech-up 1.1s cubic-bezier(0.76,0,0.24,1) both", animationDelay: "0.1s" }}
             className="mt-6 text-[clamp(30px,3.4vw,48px)] leading-[1.12] font-bold tracking-[-0.01em]"
           >
             AI Creator — tək nəfərlik{" "}
@@ -135,6 +175,7 @@ export function AiCreator() {
             className="mt-2 flex items-center justify-center leading-[0.82] whitespace-nowrap"
           >
             <span
+              style={{ animation: "destech-zero-in 1.6s cubic-bezier(0.76,0,0.24,1) both" }}
               className="relative z-[2] mr-[-0.2em] text-[clamp(150px,30vw,440px)] font-extrabold text-white/16 [-webkit-text-stroke:2px_rgba(255,235,246,0.8)] [text-shadow:0_0_60px_rgba(255,160,210,0.6),0_0_2px_rgba(255,255,255,0.7)]"
             >
               0
@@ -199,7 +240,12 @@ export function AiCreator() {
         </div>
       </section>
 
-      <AiCreatorModal tab={tab} onClose={close} />
+      <AiCreatorDrawer
+        open={drawerOpen}
+        onClose={close}
+        onRegister={() => setOpenTab("register")}
+      />
+      <AiCreatorModal tab={modalTab} onClose={close} />
     </>
   );
 }

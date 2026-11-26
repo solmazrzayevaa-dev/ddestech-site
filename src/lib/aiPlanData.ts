@@ -157,6 +157,74 @@ const PROFILES: Profile[] = [
   },
 ];
 
+/**
+ * Hər peşə üçün əlavə avtomatlaşdırma yolları. Cavabda hər dəfə bunlardan
+ * bir hissə seçilir, buna görə eyni peşə fərqli yollarla cavablanır.
+ */
+const MORE: Record<string, Automation[]> = {
+  Marketoloq: [
+    { name: "Reklam mətni variantları", how: "Eyni təklif üçün fərqli auditoriyaya uyğun 5 qısa reklam mətni yazır", module: "Avtomatlaşdırma" },
+    { name: "Kampaniya planı", how: "Ay üçün paylaşım təqvimini mövzulara və günlərə bölür", module: "Avtomatlaşdırma" },
+    { name: "Şərh cavabları", how: "Müştəri şərhlərinə brendin tonuna uyğun cavab qaralamaları hazırlayır", module: "Avtomatlaşdırma" },
+  ],
+  "Biznes analitik": [
+    { name: "Satış trend izahı", how: "Cədvəldəki dəyişiklikləri səbəbləri ilə birlikdə sadə dildə izah edir", module: "Avtomatlaşdırma" },
+    { name: "Hesabat şablonu", how: "Hər həftə eyni strukturda hesabat yığır və əsas fərqləri vurğulayır", module: "Avtomatlaşdırma" },
+    { name: "Sorğu nəticələri", how: "Sorğu cavablarını qruplaşdırır və əsas nəticələri çıxarır", module: "Avtomatlaşdırma" },
+  ],
+  Mühasib: [
+    { name: "Xərc kateqoriyalaşdırma", how: "Bank çıxarışındakı əməliyyatları xərc növlərinə görə ayırır", module: "Avtomatlaşdırma" },
+    { name: "Debitor xatırlatmaları", how: "Ödənilməmiş hesablar üçün nəzakətli xatırlatma mətnləri yazır", module: "Avtomatlaşdırma" },
+    { name: "Vergi bildirişi izahı", how: "Vergi bildirişlərini sadə dilə çevirib nə etməli olduğunu göstərir", module: "Avtomatlaşdırma" },
+  ],
+  Sahibkar: [
+    { name: "Stok xəbərdarlığı", how: "Satış qeydlərinə görə hansı məhsulun azaldığını xəbər verir", module: "Avtomatlaşdırma" },
+    { name: "Rəy cavabları", how: "Xəritə və sosial media rəylərinə hazır, nəzakətli cavablar yazır", module: "Avtomatlaşdırma" },
+    { name: "Həftəlik satış xülasəsi", how: "Həftənin satışını qısa xülasə kimi göndərməyə hazırlayır", module: "Avtomatlaşdırma" },
+  ],
+  Müəllim: [
+    { name: "Dərs planı", how: "Mövzunu gün-gün bölüb dərs planı və vaxt bölgüsü yazır", module: "Avtomatlaşdırma" },
+    { name: "Valideyn məktubu", how: "Tələbənin irəliləyişi haqqında valideynə qısa məktub hazırlayır", module: "Avtomatlaşdırma" },
+    { name: "Diktant və lüğət", how: "Mövzuya uyğun söz siyahısı və qısa diktant mətni hazırlayır", module: "Avtomatlaşdırma" },
+  ],
+  HR: [
+    { name: "Vakansiya elanı", how: "Vakansiya təsvirini qısa, cəlbedici elan mətninə çevirir", module: "Avtomatlaşdırma" },
+    { name: "Onboarding yoxlama siyahısı", how: "Yeni işçi üçün həftə-həftə yoxlama siyahısı yaradır", module: "Avtomatlaşdırma" },
+    { name: "Məzuniyyət sorğuları", how: "Məzuniyyət və icazə sorğularını qaydalara görə ilkin yoxlayır", module: "Avtomatlaşdırma" },
+  ],
+  Dizayner: [
+    { name: "Brend rəng palitrası", how: "Logo rənglərindən uyğun palitra və kontrast yoxlaması çıxarır", module: "Şəkil" },
+    { name: "Təqdimat slaydları", how: "Brief-dən slayd strukturu və mətn qaralaması hazırlayır", module: "Avtomatlaşdırma" },
+    { name: "Sosial media ölçüləri", how: "Eyni vizualı Instagram, Facebook və story ölçülərinə hazırlayır", module: "Poster" },
+  ],
+  Həkim: [
+    { name: "Qəbul xülasəsi", how: "Qeydlərdən qısa, səliqəli qəbul xülasəsi yazır", module: "Avtomatlaşdırma" },
+    { name: "Dərman təlimatı", how: "Pasiyent üçün dərmanın qəbul qaydasını sadə dildə izah edir", module: "Avtomatlaşdırma" },
+    { name: "Qəbul xatırlatması", how: "Növbəti qəbul üçün pasiyentə xatırlatma mesajı hazırlayır", module: "Avtomatlaşdırma" },
+  ],
+  Hüquqşünas: [
+    { name: "Müqavilə müqayisəsi", how: "İki müqavilə versiyasındakı fərqləri cədvəldə göstərir", module: "Avtomatlaşdırma" },
+    { name: "Müştəri məktubu", how: "Hüquqi vəziyyəti müştəri üçün sadə dildə izah edən məktub yazır", module: "Avtomatlaşdırma" },
+    { name: "Hüquqi təqvim", how: "Müddətləri və son tarixləri təqvim qaydasında siyahılayır", module: "Avtomatlaşdırma" },
+  ],
+  "Satış meneceri": [
+    { name: "CRM qeydləri", how: "Görüş qeydlərini CRM üçün strukturlaşdırılmış qeydə çevirir", module: "Avtomatlaşdırma" },
+    { name: "Etiraz cavabları", how: "Ən çox rast gəlinən etirazlara hazır, səmimi cavablar yazır", module: "Avtomatlaşdırma" },
+    { name: "Təklif xülasəsi", how: "Uzun təklifi müştəri üçün bir səhifəlik xülasəyə çevirir", module: "Avtomatlaşdırma" },
+  ],
+};
+
+const TEAM_NOTES: Record<string, string> = {
+  tek: "Tək işlədiyin üçün bu yollar sənin vaxtını birbaşa azaldır.",
+  komanda: "Komandanla eyni şablonları paylaşsan, iş standartlaşır və hər kəs eyni nəticəyə çatır.",
+};
+
+function hash(text: string): number {
+  let h = 0;
+  for (let i = 0; i < text.length; i++) h = (h * 31 + text.charCodeAt(i)) >>> 0;
+  return h;
+}
+
 /** Bazada olmayan peşə üçün ümumi cavab. `title` istifadəçinin yazdığı mətndir. */
 const GENERIC: Omit<Profile, "keys" | "title"> = {
   automations: [
@@ -193,10 +261,10 @@ function capitalize(value: string): string {
 }
 
 /**
- * İstifadəçinin yazdığı peşəyə görə plan qaytarır. Açar sözü tapılmasa,
- * ümumi plan qaytarılır və başlıq istifadəçinin yazdığı mətn olur.
+ * İstifadəçinin yazdığı peşəyə görə plan qaytarır. `team` (tek / komanda)
+ * verilsə, cavab buna görə fərdiləşir. Açar sözü tapılmasa ümumi plan qayıdır.
  */
-export function matchPlan(work: string): AiPlan {
+export function matchPlan(work: string, team?: string): AiPlan {
   const text = lower(work);
   const words = text.split(/[^\p{L}\p{N}]+/u).filter(Boolean);
   // Tək söz açarları söz başlanğıcı ilə yoxlanır ("mühasibəm" → "mühasib"),
@@ -206,16 +274,23 @@ export function matchPlan(work: string): AiPlan {
   const found = PROFILES.find((p) => p.keys.some(matches));
   const profile = found ?? { ...GENERIC, title: capitalize(work.trim()), keys: [] };
 
-  // Modul adlarının AI_MODULES-də olmasını yoxlayırıq (məlumat bazasının səhvi üçün).
   const valid = (m: string) => (AI_MODULES as readonly string[]).includes(m);
-  const automations = profile.automations.filter((a) => valid(a.module));
+  const pool = [...profile.automations, ...(MORE[profile.title] ?? [])].filter((a) =>
+    valid(a.module),
+  );
+  // Hər sorğuda iş mətninə görə fərqli üç yol seçilir (sabit, amma müxtəlif).
+  const start = pool.length ? hash(work) % pool.length : 0;
+  const automations = Array.from({ length: Math.min(3, pool.length) }, (_, i) =>
+    pool[(start + i) % pool.length],
+  );
   const creates = profile.creates.filter((c) => valid(c.module));
+  const note = team ? TEAM_NOTES[team] : undefined;
 
   return {
     valid: true,
     title: profile.title,
     automations,
     creates,
-    result: profile.result,
+    result: [profile.result, note].filter(Boolean).join(" "),
   };
 }

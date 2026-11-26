@@ -251,3 +251,38 @@
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-12px); }
 }
+
+/* "Ətraflı" paneli — sağdan sürüşərək açılır */
+@keyframes destech-slide-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+.destech-slide-right {
+  animation: destech-slide-right 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .destech-slide-right { animation: none; }
+}
+
+/* AI Creator banneri — V5 animasiyaları */
+@keyframes destech-zero-in {
+  from { opacity: 0; transform: scale(1.25); filter: blur(18px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+@keyframes destech-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes destech-wire {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -1700; }
+}
+@keyframes destech-glow {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .destech-zero-in, .destech-up, .destech-wire, .destech-glow {
+    animation: none !important;
+  }
+}

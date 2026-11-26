@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { cleanWork } from "@/lib/aiPlan";
 import { matchPlan } from "@/lib/aiPlanData";
+import { llmPlan } from "@/lib/aiPlanLlm";
+
+/** Claude çağırışı üçün yetərli vaxt (Vercel limiti). */
+export const maxDuration = 30;
 
 /**
  * POST /api/generate  { "work": "Mühasibəm, aylıq hesabat hazırlayıram" }
@@ -37,5 +41,17 @@ export async function POST(req: Request) {
   const work = cleanWork((body as { work?: unknown } | null)?.work);
   if (!work) return NextResponse.json({ valid: false }, { status: 400 });
 
-  return NextResponse.json(matchPlan(work));
+  const rawTeam = (body as { team?: unknown } | null)?.team;
+  const team = rawTeam === "tek" || rawTeam === "komanda" ? rawTeam : undefined;
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return NextResponse.json(matchPlan(work, team));
+  }
+  try {
+    const plan = await llmPlan(work, team);
+    if (plan) return NextResponse.json(plan);
+    return NextResponse.json({ valid: false });
+  } catch {
+    // Timeout, upstream və ya format xətası: müştəri yenidən cəhd edə bilsin.
+    return NextResponse.json({ error: "retry" }, { status: 503 });
+  }
 }

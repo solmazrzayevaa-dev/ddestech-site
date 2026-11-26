@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Check, Close } from "@/components/ui/icons";
-import { aiCreator, aiCreatorDetails, contact } from "@/content/site";
-import { AI_CREATOR_PRICE_AZN } from "@/lib/aiCreatorPrice";
+import { aiCreator, contact } from "@/content/site";
 import { trackLead } from "@/lib/analytics";
+import { AI_CREATOR_PRICE_AZN } from "@/lib/aiCreatorPrice";
 import { cn } from "@/lib/cn";
 import { supabasePublishableKey, supabaseUrl } from "@/lib/env";
 import { Motto, PriceRow, Spark, StatusPill } from "./AiCreatorParts";
@@ -47,13 +47,6 @@ export function AiCreatorModal({ tab, onClose }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const successRef = useRef<HTMLHeadingElement>(null);
 
-  /**
-   * Aktiv tab: `tab` prop-u açılış tabını verir, `override` isə istifadəçinin
-   * modal içində etdiyi seçimi. Effekt içində state dəyişməmək üçün
-   * hesablanır (`react-hooks/set-state-in-effect`).
-   */
-  const [override, setOverride] = useState<"program" | "register" | null>(null);
-  const active = override ?? tab ?? "program";
 
   const [form, setForm] = useState(emptyForm);
   const [errors, setErrors] = useState<Errors>({});
@@ -70,7 +63,6 @@ export function AiCreatorModal({ tab, onClose }: Props) {
    * görünsə də React hələ "açıq" sayır və bir daha açılmır.
    */
   const close = useCallback(() => {
-    setOverride(null);
     onClose();
   }, [onClose]);
 
@@ -247,115 +239,15 @@ export function AiCreatorModal({ tab, onClose }: Props) {
           </button>
         </div>
 
-        <div
-          role="tablist"
-          aria-label={aiCreator.tabs.label}
-          className="rounded-pill bg-ink/30 relative mt-5 inline-flex gap-1.5 p-[5px]"
-        >
-          {(["program", "register"] as const).map((key) => (
-            <button
-              key={key}
-              type="button"
-              role="tab"
-              id={`aiCreatorTab-${key}`}
-              aria-controls={`aiCreatorPanel-${key}`}
-              aria-selected={active === key}
-              tabIndex={active === key ? 0 : -1}
-              onClick={() => setOverride(key)}
-              className={cn(
-                "rounded-pill h-10 border-0 px-5 text-[15px] font-semibold",
-                active === key ? "text-ink bg-white" : "bg-transparent text-white",
-              )}
-            >
-              {aiCreator.tabs[key]}
-            </button>
-          ))}
-        </div>
       </header>
 
       {/* ── Məzmun ── */}
       <div className="max-[859px]:px-5 min-h-0 flex-1 overflow-y-auto px-10 pt-8 pb-10">
-        {/* Proqram haqqında — "Details" paneli */}
-        <div
-          role="tabpanel"
-          id="aiCreatorPanel-program"
-          aria-labelledby="aiCreatorTab-program"
-          hidden={active !== "program"}
-          className="flex flex-col gap-10"
-        >
-          <div>
-            <p className="m-0 text-[26px] leading-[1.25] font-medium tracking-[-0.03em] max-[859px]:text-[22px]">
-              <strong className="font-semibold">
-                {aiCreatorDetails.introLead}
-              </strong>{" "}
-              <span className="text-web-text-soft">
-                {aiCreatorDetails.introText}
-              </span>
-            </p>
-          </div>
-
-          <div>
-            <h3 className="mt-0 mb-3 text-[24px] leading-[1.15] font-semibold tracking-[-0.03em]">
-              {aiCreatorDetails.audienceLabel}
-            </h3>
-            <p className="text-web-text-muted m-0 text-base leading-[1.6]">
-              {aiCreatorDetails.audienceText}
-            </p>
-          </div>
-
-          <div>
-            <h3 className="mt-0 mb-2 text-[24px] leading-[1.15] font-semibold tracking-[-0.03em]">
-              {aiCreatorDetails.programLabel}
-            </h3>
-            <ol className="border-web-border m-0 list-none border-b p-0">
-              {aiCreatorDetails.modules.map((module) => (
-                <li
-                  key={module.number}
-                  className="border-web-border max-[719px]:grid-cols-[44px_minmax(0,1fr)] grid grid-cols-[56px_200px_minmax(0,1fr)] items-baseline gap-4 border-t py-5"
-                >
-                  <span className="font-display text-cobalt text-lg font-bold">
-                    {module.number}
-                  </span>
-                  <span className="rounded-pill bg-cobalt-tint text-cobalt-deep justify-self-start px-[13px] py-[7px] text-sm font-bold">
-                    {module.role}
-                  </span>
-                  <div className="max-[719px]:col-start-2">
-                    <strong className="block text-base font-semibold">
-                      {module.title}
-                    </strong>
-                    <small className="text-web-text-muted mt-1 block text-sm leading-[1.5]">
-                      {module.description}
-                    </small>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          {/* Yapışqan footer: qiymət və qeydiyyata keçid */}
-          <div className="bg-cloud sticky bottom-0 flex flex-wrap items-center justify-between gap-4 rounded-[20px] p-5">
-            <div>
-              <PriceRow price={AI_CREATOR_PRICE_AZN} size="md" tone="on-light" />
-              <span className="text-web-text-muted mt-1 block text-sm">
-                {aiCreatorDetails.footerNote}
-              </span>
-            </div>
-            <button
-              type="button"
-              onClick={() => setOverride("register")}
-              className="rounded-pill bg-pink inline-flex h-12 items-center gap-2.5 px-6 text-[16px] font-bold text-white transition-colors duration-500 hover:bg-[#9a1a5c] focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ink"
-            >
-              {aiCreatorDetails.footerCta}
-            </button>
-          </div>
-        </div>
-
         {/* Qeydiyyat */}
         <div
           role="tabpanel"
           id="aiCreatorPanel-register"
           aria-labelledby="aiCreatorTab-register"
-          hidden={active !== "register"}
         >
           {done ? (
             <div className="flex min-h-[420px] flex-col items-center justify-center gap-4 text-center">
@@ -567,19 +459,6 @@ export function AiCreatorModal({ tab, onClose }: Props) {
         </div>
       </div>
 
-      {/* ── Alt panel — yalnız "Proqram haqqında" tabında ── */}
-      {active === "program" && (
-        <footer className="border-web-border max-[859px]:px-5 max-[859px]:py-3 flex flex-none flex-wrap items-center justify-between gap-x-6 gap-y-4 border-t bg-white px-10 py-4">
-          <PriceRow price={AI_CREATOR_PRICE_AZN} size="sm" tone="on-light" />
-          <button
-            type="button"
-            onClick={() => setOverride("register")}
-            className="rounded-pill bg-web-cta hover:bg-web-cta-hover max-[859px]:flex-1 inline-flex h-14 items-center justify-center gap-3 border-0 px-[26px] text-[17px] font-bold text-white"
-          >
-            {aiCreator.gotoRegister} <span aria-hidden="true">→</span>
-          </button>
-        </footer>
-      )}
     </dialog>
   );
 }

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { AiPlanChat } from "@/components/ai-plan/AiPlanChat";
-import { cleanWork } from "@/lib/aiPlan";
 
 export const metadata: Metadata = {
   title: "Peşən üçün AI planı — AI Creator",
@@ -9,12 +8,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/ai-plan" },
 };
 
-export default async function AiPlanPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string | string[] }>;
-}) {
-  const { q } = await searchParams;
-  const initialQuery = cleanWork(Array.isArray(q) ? q[0] : q);
-  return <AiPlanChat initialQuery={initialQuery} />;
+export default function AiPlanPage() {
+  return <AiPlanChat />;
 }
